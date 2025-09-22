@@ -1,0 +1,28 @@
+# pnpm configuration optimized for Windows
+auto-install-peers=true
+strict-peer-dependencies=false
+prefer-frozen-lockfile=false
+save-exact=false
+
+# Windows performance optimizations
+shamefully-hoist=true
+store-dir=C:\pnpm-store
+verify-store-integrity=false
+package-import-method=hardlink
+
+# Network optimizations
+network-timeout=60000
+fetch-timeout=60000
+registry=https://registry.npmjs.org/
+
+# Cache settings
+cache-dir=C:\pnpm-cache
+state-dir=C:\pnpm-state
+
+# Hoisting patterns for better performance
+hoist-pattern[]=*eslint*
+hoist-pattern[]=*prettier*
+hoist-pattern[]=*typescript*
+public-hoist-pattern[]=*eslint*
+public-hoist-pattern[]=*prettier*
+public-hoist-pattern[]=*typescript*

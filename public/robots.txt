@@ -1,0 +1,160 @@
+User-agent: *
+Allow: /
+
+# Explicitly allow important sections for faster discovery
+Allow: /services/
+Allow: /locations/
+Allow: /blog/
+Allow: /about
+Allow: /contact
+Allow: /faq
+
+# Allow specific bots unrestricted access (no crawl delay)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+
+# Block Next.js specific build files but ALLOW images
+Disallow: /_next/static/
+Disallow: /_next/webpack/
+Disallow: /.next/
+Disallow: /api/
+Disallow: /_app
+Disallow: /_document
+Disallow: /_error
+
+# IMPORTANT: Allow Next.js optimized images
+Allow: /_next/image
+User-agent: Googlebot-Image
+Allow: /_next/image
+
+# Block development and build files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /yarn.lock
+Disallow: /tsconfig.json
+Disallow: /next.config.js
+
+# Block utility and admin pages
+Disallow: /404/
+Disallow: /500/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /register/
+Disallow: /thankyou/
+Disallow: /confirmation/
+Disallow: /success/
+
+# Block tracking and session parameters
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?gclid=*
+Disallow: /*?fbclid=*
+Disallow: /*?sessionid=*
+Disallow: /*?sid=*
+Disallow: /*?source=*
+Disallow: /*?medium=*
+Disallow: /*?campaign=*
+
+# Block duplicate content with parameters
+Disallow: /*?sort=*
+Disallow: /*?filter=*
+Disallow: /*?page=*
+Disallow: /*?view=*
+Disallow: /*?tab=*
+
+# Block file downloads that don't need indexing
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+Disallow: /*.zip$
+Disallow: /*.exe$
+Disallow: /*.dmg$
+
+# Allow static assets for SEO
+Allow: /images/
+Allow: /img/
+Allow: /assets/
+Allow: /static/
+Allow: /public/
+
+# Special rules for image bots
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /img/
+Allow: /assets/
+Allow: /static/
+Allow: /public/
+
+# No crawl delay for faster indexing of static content
+# Next.js SSG sites can handle high crawl rates
+
+# Comprehensive sitemap listing for all content
+Sitemap: https://discountleakdetection.com/sitemap.xml
+Sitemap: https://discountleakdetection.com/sitemap-main.xml
+Sitemap: https://discountleakdetection.com/sitemap-services.xml
+Sitemap: https://discountleakdetection.com/sitemap-blog.xml
+Sitemap: https://discountleakdetection.com/sitemap-state-locations.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-alabama.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-alaska.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-arizona.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-arkansas.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-california.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-colorado.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-connecticut.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-delaware.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-florida.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-georgia.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-hawaii.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-idaho.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-illinois.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-indiana.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-iowa.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-kansas.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-kentucky.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-louisiana.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-maine.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-maryland.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-massachusetts.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-michigan.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-minnesota.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-mississippi.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-missouri.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-montana.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-nebraska.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-nevada.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-new-hampshire.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-new-jersey.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-new-mexico.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-new-york.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-north-carolina.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-north-dakota.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-ohio.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-oklahoma.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-oregon.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-pennsylvania.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-rhode-island.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-south-carolina.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-south-dakota.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-tennessee.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-texas.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-utah.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-vermont.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-virginia.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-washington.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-west-virginia.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-wisconsin.xml
+Sitemap: https://discountleakdetection.com/sitemap-locations-wyoming.xml
