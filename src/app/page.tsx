@@ -561,7 +561,6 @@ export default function HomePage() {
         }}
       >
         <Hero />
-        <ContentSection />
         <ServiceHighlights />
         <TopServiceCities />
         <WhyChooseUs />

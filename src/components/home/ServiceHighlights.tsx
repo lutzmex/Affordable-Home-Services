@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, useMemo, useState } from "react";
-import { ArrowDown, ArrowRight, Phone, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
 import Image from "next/image";
 
 // Service Interface
@@ -10,51 +10,83 @@ interface Service {
   title: string;
   description: string;
   imagePath: string;
-  features: string[];
   projectsCompleted: number;
-  avgCost: string;
   category: string;
-  categoryId: string;
-  timeframe: string;
   slug: string;
 }
 
 // Memoized Service Card Component
 const ServiceCard = memo(({ service }: { service: Service }) => {
-  const handleCardClick = () => {
+  const handleViewDetails = (e: React.MouseEvent) => {
+    e.stopPropagation();
     window.location.href = `/services/${service.slug}`;
   };
 
+  const handleGetQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.location.href = `tel:+18184536110`;
+  };
+
   return (
-    <div
-      onClick={handleCardClick}
-      className="group bg-white rounded-xl transition-all duration-300 p-6 text-center hover:shadow-lg transform hover:-translate-y-1 cursor-pointer flex flex-col justify-center items-center border border-stone-100 hover:border-stone-200"
-    >
-      {/* Image container */}
-      <div className="relative h-36 w-36 lg:h-52 lg:w-52 mx-auto mb-4">
+    <div className="group relative bg-white rounded-3xl transition-all duration-500 overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-2xl h-full flex flex-col">
+      {/* Pink Top Gradient Effect */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-24 opacity-40 group-hover:opacity-60 transition-opacity duration-500 z-10 pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, rgba(215, 69, 153, 0.3) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Image Section - Full Size */}
+      <div className="relative h-56 sm:h-64 lg:h-72 overflow-hidden flex-shrink-0">
         <Image
           src={service.imagePath}
-          alt={`${service.title} service`}
+          alt={`${service.title} in Los Angeles and Ventura County`}
           fill
-          className="object-contain group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 1024px) 144px, 208px"
+          className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           loading="lazy"
         />
+        
+        {/* Optional: Text Overlay on Image */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
-      {/* Service Title */}
-      <h3 className="font-semibold text-gray-900 text-base lg:text-lg leading-tight mb-2">
-        {service.title}
-      </h3>
+      {/* Content Section */}
+      <div className="flex-grow flex flex-col p-5 sm:p-6 lg:p-7">
+        {/* Service Title */}
+        <h3 className="font-bold text-gray-900 text-base sm:text-lg lg:text-xl leading-tight mb-3 min-h-[3.5rem] flex items-center">
+          {service.title}
+        </h3>
 
-      {/* Average Cost */}
-      <p className="text-sm text-gray-600 mb-3">
-        Starting from {service.avgCost}
-      </p>
+        {/* Description */}
+        <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2 flex-grow min-h-[3rem]">
+          {service.description}
+        </p>
 
-      {/* Projects Completed */}
-      <div className="text-xs font-medium px-3 py-1 rounded-full bg-stone-100 text-gray-700">
-        {service.projectsCompleted.toLocaleString()} Projects Completed
+        {/* Projects Completed Badge */}
+        <div className="text-sm font-bold px-4 py-2.5 rounded-full bg-pink-50 text-pink-700 mb-5 border border-pink-100 group-hover:bg-pink-100 group-hover:border-pink-200 transition-colors duration-300 text-center">
+          {service.projectsCompleted.toLocaleString()} Happy Customers
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={handleViewDetails}
+            className="w-full px-4 py-3 rounded-full bg-white hover:bg-gray-50 text-gray-700 text-sm font-bold transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 flex items-center justify-center gap-2 hover:shadow-md whitespace-nowrap"
+          >
+            Learn More
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          
+          <button
+            onClick={handleGetQuote}
+            className="w-full px-4 py-3 rounded-full text-white text-sm font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 whitespace-nowrap"
+            style={{ backgroundColor: "#D74599" }}
+          >
+            Free Quote
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -63,10 +95,9 @@ const ServiceCard = memo(({ service }: { service: Service }) => {
 ServiceCard.displayName = "ServiceCard";
 
 function ServiceHighlights() {
-  // State to control the visibility of additional services
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Services data for home services
+  // Services data (excluding Commercial services)
   const services = useMemo<Service[]>(
     () => [
       // PAVER SERVICES
@@ -74,77 +105,41 @@ function ServiceHighlights() {
         id: "driveway-paver-installation",
         title: "Driveway Paver Installation",
         description:
-          "Transform your driveway with beautiful, durable pavers. Custom designs and professional installation.",
+          "Beautiful, durable driveway pavers that boost curb appeal. Expert installation with quality materials.",
         imagePath: "/images/driveway-paver-installation.webp",
-        features: [
-          "Custom paver designs",
-          "Lifetime warranty",
-          "Professional installation",
-          "Free design consultation",
-        ],
-        projectsCompleted: 2456,
-        avgCost: "$12-18/sq ft",
+        projectsCompleted: 780,
         category: "Paver Services",
-        categoryId: "paver-services",
-        timeframe: "3-5 days",
-        slug: "driveway-paver-installation",
+        slug: "driveway-pavers-services",
       },
       {
         id: "patio-paver-installation",
         title: "Patio Paver Installation",
         description:
-          "Create stunning outdoor living spaces with professional patio paver installation and design.",
+          "Create your dream outdoor living space with custom patio pavers. Professional design and installation.",
         imagePath: "/images/patio-paver-installation.webp",
-        features: [
-          "Outdoor kitchen ready",
-          "Fire pit integration",
-          "Drainage solutions",
-          "Seating wall options",
-        ],
-        projectsCompleted: 3234,
-        avgCost: "$15-25/sq ft",
+        projectsCompleted: 920,
         category: "Paver Services",
-        categoryId: "paver-services",
-        timeframe: "4-7 days",
-        slug: "patio-paver-installation",
+        slug: "patio-pavers-services",
       },
       {
         id: "pool-deck-pavers",
         title: "Pool Deck Pavers",
         description:
-          "Slip-resistant pool deck pavers that stay cool and provide safety around your swimming pool.",
+          "Safe, slip-resistant pool deck pavers that stay cool. Transform your pool area with style.",
         imagePath: "/images/pool-deck-pavers.webp",
-        features: [
-          "Slip-resistant surface",
-          "Cool-touch technology",
-          "Pool equipment access",
-          "Coping integration",
-        ],
-        projectsCompleted: 1567,
-        avgCost: "$18-28/sq ft",
+        projectsCompleted: 445,
         category: "Paver Services",
-        categoryId: "paver-services",
-        timeframe: "5-8 days",
-        slug: "pool-deck-pavers",
+        slug: "pool-deck-pavers-services",
       },
       {
         id: "paver-repair-restoration",
         title: "Paver Repair & Restoration",
         description:
-          "Restore and repair existing paver surfaces. Re-sanding, sealing, and replacement services.",
+          "Restore your existing pavers to like-new condition. Replacement, re-leveling, and sealing services.",
         imagePath: "/images/paver-repair-restoration.webp",
-        features: [
-          "Joint sand replacement",
-          "Paver sealing service",
-          "Individual paver replacement",
-          "Leveling and re-setting",
-        ],
-        projectsCompleted: 4321,
-        avgCost: "$8-15/sq ft",
+        projectsCompleted: 1240,
         category: "Paver Services",
-        categoryId: "paver-services",
-        timeframe: "1-3 days",
-        slug: "paver-repair-restoration",
+        slug: "paver-repair-services",
       },
 
       // WINDOW SERVICES
@@ -152,77 +147,41 @@ function ServiceHighlights() {
         id: "window-replacement",
         title: "Window Replacement",
         description:
-          "Energy-efficient window replacement with professional installation. Vinyl, wood, and aluminum options.",
+          "Energy-efficient window replacement. Lower bills, improve comfort. Quality vinyl and wood options.",
         imagePath: "/images/window-replacement.webp",
-        features: [
-          "Energy star certified",
-          "Double & triple pane",
-          "Lifetime warranty",
-          "Professional installation",
-        ],
-        projectsCompleted: 5678,
-        avgCost: "$450-850 per window",
+        projectsCompleted: 1650,
         category: "Window Services",
-        categoryId: "window-services",
-        timeframe: "1-2 days",
-        slug: "window-replacement",
+        slug: "window-replacement-services",
       },
       {
-        id: "historic-window-restoration",
-        title: "Historic Window Restoration",
+        id: "window-installation",
+        title: "New Window Installation",
         description:
-          "Preserve the character of historic homes with professional window restoration and repair services.",
-        imagePath: "/images/historic-window-restoration.webp",
-        features: [
-          "Period-accurate materials",
-          "Wood frame restoration",
-          "Original hardware preservation",
-          "Energy efficiency upgrades",
-        ],
-        projectsCompleted: 987,
-        avgCost: "$800-1500 per window",
+          "Professional window installation for new construction and additions. Precise fitting, proper sealing.",
+        imagePath: "/images/window-installation.webp",
+        projectsCompleted: 540,
         category: "Window Services",
-        categoryId: "window-services",
-        timeframe: "2-4 days",
-        slug: "historic-window-restoration",
+        slug: "window-installation-services",
       },
       {
-        id: "storm-window-installation",
-        title: "Storm Window Installation",
+        id: "window-repair",
+        title: "Window Repair Services",
         description:
-          "Protect your windows and increase energy efficiency with custom storm window installation.",
-        imagePath: "/images/storm-window-installation.webp",
-        features: [
-          "Custom measurements",
-          "Aluminum construction",
-          "Low-E glass coating",
-          "Easy seasonal removal",
-        ],
-        projectsCompleted: 2345,
-        avgCost: "$150-300 per window",
+          "Fast window repair for broken glass, damaged frames, and hardware issues. Same-day service available.",
+        imagePath: "/images/window-repair.webp",
+        projectsCompleted: 980,
         category: "Window Services",
-        categoryId: "window-services",
-        timeframe: "1 day",
-        slug: "storm-window-installation",
+        slug: "window-repair-services",
       },
       {
-        id: "commercial-window-services",
-        title: "Commercial Window Services",
+        id: "energy-efficient-windows",
+        title: "Energy-Efficient Windows",
         description:
-          "Professional commercial window installation, replacement, and repair for businesses and office buildings.",
-        imagePath: "/images/commercial-window-services.webp",
-        features: [
-          "Storefront windows",
-          "Office building glazing",
-          "Energy efficiency focus",
-          "Minimal business disruption",
-        ],
-        projectsCompleted: 876,
-        avgCost: "$200-600 per window",
+          "Cut energy costs with modern, efficient windows. Double-pane, Low-E glass options available.",
+        imagePath: "/images/energy-efficient-windows.webp",
+        projectsCompleted: 825,
         category: "Window Services",
-        categoryId: "window-services",
-        timeframe: "1-3 days",
-        slug: "commercial-window-services",
+        slug: "energy-efficient-windows-services",
       },
 
       // ROOFING SERVICES
@@ -230,77 +189,41 @@ function ServiceHighlights() {
         id: "roof-repair",
         title: "Roof Repair Services",
         description:
-          "Professional roof leak repair, shingle replacement, and emergency roofing services available 24/7.",
+          "Expert roof leak repair and shingle replacement. Emergency service available 24/7 for urgent issues.",
         imagePath: "/images/roof-repair-services.webp",
-        features: [
-          "24/7 emergency service",
-          "Leak detection & repair",
-          "Shingle replacement",
-          "10-year warranty",
-        ],
-        projectsCompleted: 4567,
-        avgCost: "$300-1200 per repair",
+        projectsCompleted: 1320,
         category: "Roofing Services",
-        categoryId: "roofing-services",
-        timeframe: "1-2 days",
-        slug: "roof-repair",
+        slug: "roof-repair-services",
       },
       {
         id: "roof-replacement",
-        title: "Roof Replacement",
+        title: "Complete Roof Replacement",
         description:
-          "Complete roof replacement with premium materials. Asphalt, tile, metal, and slate roofing options.",
+          "Quality roof replacement with premium materials. Asphalt, tile, and metal roofing options.",
         imagePath: "/images/roof-replacement.webp",
-        features: [
-          "Premium roofing materials",
-          "Full tear-off service",
-          "25-year warranty",
-          "Insurance claim assistance",
-        ],
-        projectsCompleted: 1234,
-        avgCost: "$8000-25000",
+        projectsCompleted: 365,
         category: "Roofing Services",
-        categoryId: "roofing-services",
-        timeframe: "2-5 days",
-        slug: "roof-replacement",
-      },
-      {
-        id: "commercial-roofing",
-        title: "Commercial Roofing",
-        description:
-          "Professional commercial roofing services for flat roofs, TPO, EPDM, and modified bitumen systems.",
-        imagePath: "/images/commercial-roofing.webp",
-        features: [
-          "Flat roof specialists",
-          "TPO & EPDM systems",
-          "Roof coating services",
-          "Preventive maintenance",
-        ],
-        projectsCompleted: 543,
-        avgCost: "$5-15/sq ft",
-        category: "Roofing Services",
-        categoryId: "roofing-services",
-        timeframe: "3-10 days",
-        slug: "commercial-roofing",
+        slug: "roof-replacement-services",
       },
       {
         id: "gutter-installation",
         title: "Gutter Installation & Repair",
         description:
-          "Professional gutter installation, cleaning, and repair services to protect your home's foundation.",
+          "Protect your home with quality gutters. Installation, cleaning, and repair services available.",
         imagePath: "/images/gutter-installation.webp",
-        features: [
-          "Seamless aluminum gutters",
-          "Leaf guard installation",
-          "Downspout extensions",
-          "Professional cleaning",
-        ],
-        projectsCompleted: 3456,
-        avgCost: "$6-12 per linear ft",
+        projectsCompleted: 990,
         category: "Roofing Services",
-        categoryId: "roofing-services",
-        timeframe: "1-2 days",
-        slug: "gutter-installation",
+        slug: "gutter-installation-services",
+      },
+      {
+        id: "flat-roof-contractors",
+        title: "Flat Roof Services",
+        description:
+          "Specialized flat roof installation and repair. Commercial and residential flat roofing experts.",
+        imagePath: "/images/flat-roofing.webp",
+        projectsCompleted: 185,
+        category: "Roofing Services",
+        slug: "flat-roof-contractors-services",
       },
 
       // EXTERIOR PAINTING SERVICES
@@ -308,164 +231,118 @@ function ServiceHighlights() {
         id: "exterior-house-painting",
         title: "Exterior House Painting",
         description:
-          "Professional residential exterior painting with premium paints and expert color consultation.",
+          "Professional exterior painting that lasts. Premium paints, expert prep work, beautiful results.",
         imagePath: "/images/exterior-house-painting.webp",
-        features: [
-          "Premium paint brands",
-          "Color consultation included",
-          "Surface preparation",
-          "7-year warranty",
-        ],
-        projectsCompleted: 6789,
-        avgCost: "$3500-8500",
+        projectsCompleted: 1890,
         category: "Exterior Painting",
-        categoryId: "exterior-painting",
-        timeframe: "4-8 days",
-        slug: "exterior-house-painting",
+        slug: "exterior-painting-services",
       },
       {
-        id: "commercial-exterior-painting",
-        title: "Commercial Exterior Painting",
+        id: "exterior-paint-preparation",
+        title: "Exterior Paint Prep",
         description:
-          "Professional commercial painting services for offices, retail stores, and industrial buildings.",
-        imagePath: "/images/commercial-exterior-painting.webp",
-        features: [
-          "Minimal business disruption",
-          "Industrial grade coatings",
-          "Power washing included",
-          "Maintenance programs",
-        ],
-        projectsCompleted: 987,
-        avgCost: "$2-6/sq ft",
+          "Thorough surface preparation for lasting results. Power washing, scraping, priming, and repairs.",
+        imagePath: "/images/stucco-painting-repair.webp",
+        projectsCompleted: 615,
         category: "Exterior Painting",
-        categoryId: "exterior-painting",
-        timeframe: "3-10 days",
-        slug: "commercial-exterior-painting",
+        slug: "exterior-paint-preparation-services",
       },
       {
-        id: "fence-deck-staining",
+        id: "fence-painting",
         title: "Fence & Deck Staining",
         description:
-          "Protect and beautify your wooden fences and decks with professional staining and sealing services.",
+          "Protect and beautify your fence and deck. Quality staining and painting for wood surfaces.",
         imagePath: "/images/fence-deck-staining.webp",
-        features: [
-          "Weather protection",
-          "UV resistant stains",
-          "Power washing prep",
-          "Annual maintenance",
-        ],
-        projectsCompleted: 2345,
-        avgCost: "$2-5/sq ft",
+        projectsCompleted: 535,
         category: "Exterior Painting",
-        categoryId: "exterior-painting",
-        timeframe: "2-4 days",
-        slug: "fence-deck-staining",
-      },
-      {
-        id: "stucco-painting-repair",
-        title: "Stucco Painting & Repair",
-        description:
-          "Specialized stucco painting and crack repair services for Los Angeles area homes.",
-        imagePath: "/images/stucco-painting-repair.webp",
-        features: [
-          "Crack repair expertise",
-          "Elastomeric coatings",
-          "Color matching service",
-          "Waterproof sealing",
-        ],
-        projectsCompleted: 1876,
-        avgCost: "$4-8/sq ft",
-        category: "Exterior Painting",
-        categoryId: "exterior-painting",
-        timeframe: "3-6 days",
-        slug: "stucco-painting-repair",
+        slug: "fence-painting-services",
       },
     ],
     [],
   );
 
-  // Determine which services to display based on the 'isExpanded' state
+  // Show only first 8 services initially
   const displayedServices = useMemo(
     () => (isExpanded ? services : services.slice(0, 8)),
     [isExpanded, services],
   );
 
   return (
-    <section className="py-12 lg:py-20 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           {/* Main Title */}
-          <h2 className="text-3xl lg:text-4xl font-semibold text-gray-900 mb-4">
-            Complete Home Improvement Services
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 px-4">
+            Our Home Improvement Services
           </h2>
 
           {/* Subtitle */}
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            Transform your home with our professional paver, window, roofing,
-            and painting services in Los Angeles & Ventura County.
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto px-4">
+            Quality handyman services for your home. Pavers, windows, roofing, and painting throughout Los Angeles & Ventura County.
           </p>
         </div>
 
-        {/* Services Grid - 4 columns on medium+ screens */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-12">
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8 mb-10 sm:mb-12 lg:mb-16 max-w-[1600px] mx-auto">
           {displayedServices.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
-        {/* "Show More/Show Less" Button */}
-        <div className="text-center mb-16">
-          {services.length > 8 && (
-            <button
-              className="inline-flex items-center bg-stone-50 hover:bg-stone-100 text-gray-700 px-6 py-3 rounded-full font-medium transition-colors duration-200 border border-stone-200"
-              onClick={() => setIsExpanded(!isExpanded)}
-            >
-              {isExpanded ? (
-                <>
-                  <ArrowUp className="h-4 w-4 mr-2" />
-                  Show Less Services
-                </>
-              ) : (
-                <>
-                  <ArrowDown className="h-4 w-4 mr-2" />
-                  Show More Services
-                </>
-              )}
-            </button>
-          )}
-        </div>
-
-        {/* Single CTA Section */}
+        {/* CTA Box with Buttons */}
         <div className="text-center">
-          <div className="bg-stone-50 rounded-2xl p-8 border border-stone-100">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Ready to Transform Your Home?
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Get a free estimate for your project. Our expert team is here to
-              help you select the perfect solution for your home improvement
-              needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/services"
-                className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 border border-stone-200 text-gray-700"
-              >
-                View All Services
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
-                href="tel:+18184536110"
-                className="inline-flex items-center gap-2 text-white hover:bg-opacity-90 px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 shadow-lg"
-                style={{
-                  backgroundColor: "#D74599",
-                }}
-              >
-                <Phone className="h-5 w-5" />
-                Call Now: (818) 453-6110
-                <ArrowRight className="h-4 w-4" />
-              </a>
+          <div className="relative bg-white rounded-3xl p-5 sm:p-6 border border-gray-200 shadow-lg overflow-hidden max-w-3xl mx-auto h-[200px] flex items-center justify-center">
+            {/* Pink Gradient Effect on Top */}
+            <div
+              className="absolute top-0 left-0 right-0 h-16 opacity-15 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(215, 69, 153, 0.5) 0%, transparent 100%)",
+              }}
+            />
+
+            {/* Content */}
+            <div className="relative w-full">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                Need a Different Service?
+              </h3>
+              <p className="text-sm text-gray-600 mb-4 max-w-xl mx-auto">
+                Explore our complete range of affordable home services. From minor repairs to major renovations, we've got you covered.
+              </p>
+
+              {/* Buttons Row */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                {/* Show More/Less Button */}
+                {services.length > 8 && (
+                  <button
+                    className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 bg-white hover:bg-gray-50 text-gray-700 border-2 border-gray-300 hover:border-gray-400"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                  >
+                    {isExpanded ? (
+                      <>
+                        <ArrowUp className="h-4 w-4" />
+                        Show Less
+                      </>
+                    ) : (
+                      <>
+                        <ArrowDown className="h-4 w-4" />
+                        View More Services
+                      </>
+                    )}
+                  </button>
+                )}
+
+                {/* View All Services Button */}
+                <a
+                  href="/services"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-white"
+                  style={{ backgroundColor: "#D74599" }}
+                >
+                  All Services
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

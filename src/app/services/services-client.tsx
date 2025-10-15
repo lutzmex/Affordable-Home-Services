@@ -1,18 +1,12 @@
-// src/app/services/services-client.tsx
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import {
   Search,
   Phone,
-  Star,
-  Clock,
-  Users,
-  Check,
   ArrowRight,
-  CheckCircle,
-  Target,
-  Sparkles,
-  PhoneCall,
+  CheckCircle2,
+  MapPin,
+  Building2,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -22,109 +16,14 @@ interface Service {
   title: string;
   description: string;
   imagePath: string;
-  features: string[];
-  expertsAvailable: number;
-  responseTime: string;
+  projectsCompleted: number;
   category: string;
   categoryId: string;
-  rating: number;
-  completedJobs: number;
-  avgCost: string;
-  isPopular?: boolean;
-  isEmergency?: boolean;
   slug: string;
 }
 
-// Comprehensive Services Data with Updated Content for Home Services
+// Services Data (Without Commercial Services)
 const comprehensiveServices: Service[] = [
-  // COMMERCIAL SERVICES
-  {
-    id: "commercial-painting-services",
-    title: "Commercial Painting Services",
-    description:
-      "Professional commercial painting for offices, retail stores, and industrial buildings with minimal business disruption.",
-    imagePath: "/images/commercial-exterior-painting.webp",
-    features: [
-      "Minimal business disruption scheduling",
-      "Industrial grade coatings and finishes",
-      "Professional surface preparation",
-      "Ongoing maintenance programs available",
-    ],
-    expertsAvailable: 15,
-    responseTime: "< 4 Hours",
-    category: "Commercial Services",
-    categoryId: "commercial-services",
-    rating: 4.8,
-    completedJobs: 987,
-    avgCost: "$2,500-15,000",
-    isPopular: true,
-    slug: "commercial-painting-services",
-  },
-  {
-    id: "commercial-paver-installation-services",
-    title: "Commercial Paver Installation",
-    description:
-      "Durable commercial paver solutions for business entrances, parking areas, and outdoor commercial spaces.",
-    imagePath: "/images/commercial-paver-services.webp",
-    features: [
-      "Heavy-duty commercial pavers",
-      "ADA compliant installations",
-      "Load-bearing calculations included",
-      "Long-term durability warranty",
-    ],
-    expertsAvailable: 12,
-    responseTime: "< 24 Hours",
-    category: "Commercial Services",
-    categoryId: "commercial-services",
-    rating: 4.7,
-    completedJobs: 543,
-    avgCost: "$8-25/sq ft",
-    slug: "commercial-paver-installation-services",
-  },
-  {
-    id: "commercial-roofing-services",
-    title: "Commercial Roofing Services",
-    description:
-      "Complete commercial roofing solutions including flat roofs, TPO systems, and preventive maintenance programs.",
-    imagePath: "/images/commercial-roofing.webp",
-    features: [
-      "Flat roof specialists with expertise",
-      "TPO, EPDM, and membrane systems",
-      "Emergency leak repair services",
-      "Preventive maintenance contracts",
-    ],
-    expertsAvailable: 18,
-    responseTime: "< 2 Hours",
-    category: "Commercial Services",
-    categoryId: "commercial-services",
-    rating: 4.9,
-    completedJobs: 765,
-    avgCost: "$5-20/sq ft",
-    isEmergency: true,
-    slug: "commercial-roofing-services",
-  },
-  {
-    id: "commercial-windows-services",
-    title: "Commercial Window Services",
-    description:
-      "Professional commercial window installation, replacement, and repair for office buildings and retail spaces.",
-    imagePath: "/images/commercial-window-services.webp",
-    features: [
-      "Storefront window specialists",
-      "Energy-efficient glazing systems",
-      "Building code compliance ensured",
-      "Scheduled maintenance programs",
-    ],
-    expertsAvailable: 14,
-    responseTime: "< 8 Hours",
-    category: "Commercial Services",
-    categoryId: "commercial-services",
-    rating: 4.6,
-    completedJobs: 432,
-    avgCost: "$200-800/window",
-    slug: "commercial-windows-services",
-  },
-
   // EXTERIOR PAINTING
   {
     id: "exterior-painting-services",
@@ -132,20 +31,9 @@ const comprehensiveServices: Service[] = [
     description:
       "Premium exterior house painting with professional surface preparation and high-quality paints for lasting results.",
     imagePath: "/images/exterior-house-painting.webp",
-    features: [
-      "Premium Sherwin-Williams & Benjamin Moore paints",
-      "Complete surface preparation included",
-      "Color consultation and matching",
-      "7-year workmanship warranty",
-    ],
-    expertsAvailable: 25,
-    responseTime: "< 2 Hours",
+    projectsCompleted: 6789,
     category: "Exterior Painting",
     categoryId: "exterior-painting",
-    rating: 4.8,
-    completedJobs: 3456,
-    avgCost: "$3,500-12,000",
-    isPopular: true,
     slug: "exterior-painting-services",
   },
   {
@@ -154,19 +42,9 @@ const comprehensiveServices: Service[] = [
     description:
       "Comprehensive exterior paint preparation including power washing, scraping, priming, and surface repairs.",
     imagePath: "/images/stucco-painting-repair.webp",
-    features: [
-      "High-pressure power washing",
-      "Professional scraping and sanding",
-      "Crack repair and wood replacement",
-      "Premium primer application",
-    ],
-    expertsAvailable: 20,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 2134,
     category: "Exterior Painting",
     categoryId: "exterior-painting",
-    rating: 4.7,
-    completedJobs: 2134,
-    avgCost: "$1,200-4,500",
     slug: "exterior-paint-preparation-services",
   },
   {
@@ -175,241 +53,125 @@ const comprehensiveServices: Service[] = [
     description:
       "Professional fence painting and staining services to protect and beautify wooden and metal fencing.",
     imagePath: "/images/fence-deck-staining.webp",
-    features: [
-      "Weather-resistant stains and paints",
-      "UV protection coatings applied",
-      "Power washing prep included",
-      "Annual maintenance programs",
-    ],
-    expertsAvailable: 18,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 1876,
     category: "Exterior Painting",
     categoryId: "exterior-painting",
-    rating: 4.6,
-    completedJobs: 1876,
-    avgCost: "$3-8/linear ft",
     slug: "fence-painting-services",
   },
 
   // PAVER SERVICES
   {
     id: "driveway-pavers-services",
-    title: "Driveway Paver Services",
+    title: "Driveway Paver Installation",
     description:
-      "Transform your driveway with custom paver installation using interlocking concrete pavers and natural stone options.",
+      "Transform your driveway with beautiful, durable pavers. Custom designs and professional installation.",
     imagePath: "/images/driveway-paver-installation.webp",
-    features: [
-      "Custom design consultation included",
-      "Interlocking concrete and natural stone",
-      "Professional excavation and base prep",
-      "Lifetime material warranty",
-    ],
-    expertsAvailable: 22,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 2456,
     category: "Paver Services",
     categoryId: "paver-services",
-    rating: 4.9,
-    completedJobs: 2567,
-    avgCost: "$12-25/sq ft",
-    isPopular: true,
     slug: "driveway-pavers-services",
   },
   {
     id: "patio-pavers-services",
-    title: "Patio Paver Services",
+    title: "Patio Paver Installation",
     description:
-      "Create stunning outdoor living spaces with beautiful patio paver installation for entertainment and relaxation.",
+      "Create stunning outdoor living spaces with professional patio paver installation and design.",
     imagePath: "/images/patio-paver-installation.webp",
-    features: [
-      "Outdoor kitchen integration ready",
-      "Fire pit and seating wall options",
-      "Proper drainage solutions included",
-      "Custom patterns and borders",
-    ],
-    expertsAvailable: 20,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 3234,
     category: "Paver Services",
     categoryId: "paver-services",
-    rating: 4.8,
-    completedJobs: 3234,
-    avgCost: "$15-30/sq ft",
-    isPopular: true,
     slug: "patio-pavers-services",
   },
   {
     id: "paver-repair-services",
-    title: "Paver Repair Services",
+    title: "Paver Repair & Restoration",
     description:
-      "Professional paver repair, restoration, and maintenance to restore existing paved surfaces to like-new condition.",
+      "Restore and repair existing paver surfaces. Re-sanding, sealing, and replacement services.",
     imagePath: "/images/paver-repair-restoration.webp",
-    features: [
-      "Joint sand replacement and refilling",
-      "Individual paver replacement service",
-      "Professional cleaning and sealing",
-      "Leveling and re-setting expertise",
-    ],
-    expertsAvailable: 16,
-    responseTime: "< 2 Hours",
+    projectsCompleted: 4321,
     category: "Paver Services",
     categoryId: "paver-services",
-    rating: 4.7,
-    completedJobs: 1567,
-    avgCost: "$8-18/sq ft",
     slug: "paver-repair-services",
   },
   {
     id: "pool-deck-pavers-services",
-    title: "Pool Deck Paver Services",
+    title: "Pool Deck Pavers",
     description:
-      "Slip-resistant pool deck pavers that stay cool and provide safety around swimming pools and spa areas.",
+      "Slip-resistant pool deck pavers that stay cool and provide safety around your swimming pool.",
     imagePath: "/images/pool-deck-pavers.webp",
-    features: [
-      "Slip-resistant surface technology",
-      "Cool-touch paver materials",
-      "Pool equipment access solutions",
-      "Integrated coping and drainage",
-    ],
-    expertsAvailable: 14,
-    responseTime: "< 6 Hours",
+    projectsCompleted: 1567,
     category: "Paver Services",
     categoryId: "paver-services",
-    rating: 4.8,
-    completedJobs: 987,
-    avgCost: "$18-35/sq ft",
     slug: "pool-deck-pavers-services",
   },
 
   // ROOFING SERVICES
   {
     id: "flat-roof-contractors-services",
-    title: "Flat Roof Contractor Services",
+    title: "Flat Roof Services",
     description:
       "Specialized flat roof installation, repair, and maintenance for commercial and residential buildings.",
     imagePath: "/images/flat-roofing.webp",
-    features: [
-      "TPO, EPDM, and modified bitumen",
-      "Professional membrane installation",
-      "Drainage system optimization",
-      "25-year material warranties",
-    ],
-    expertsAvailable: 12,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 654,
     category: "Roofing Services",
     categoryId: "roofing-services",
-    rating: 4.7,
-    completedJobs: 654,
-    avgCost: "$6-15/sq ft",
     slug: "flat-roof-contractors-services",
   },
   {
     id: "roof-repair-services",
     title: "Roof Repair Services",
     description:
-      "Emergency roof repair services available 24/7 for leak detection, shingle replacement, and storm damage.",
+      "Professional roof leak repair, shingle replacement, and emergency roofing services available 24/7.",
     imagePath: "/images/roof-repair-services.webp",
-    features: [
-      "24/7 emergency response available",
-      "Insurance claim assistance provided",
-      "Leak detection and repair",
-      "Storm damage restoration",
-    ],
-    expertsAvailable: 30,
-    responseTime: "< 1 Hour",
+    projectsCompleted: 4567,
     category: "Roofing Services",
     categoryId: "roofing-services",
-    rating: 4.9,
-    completedJobs: 4567,
-    avgCost: "$300-2,500",
-    isEmergency: true,
-    isPopular: true,
     slug: "roof-repair-services",
   },
   {
     id: "roof-replacement-services",
-    title: "Roof Replacement Services",
+    title: "Roof Replacement",
     description:
-      "Complete roof replacement with premium materials and professional installation backed by comprehensive warranties.",
+      "Complete roof replacement with premium materials. Asphalt, tile, metal, and slate roofing options.",
     imagePath: "/images/roof-replacement.webp",
-    features: [
-      "Premium GAF, Owens Corning materials",
-      "Complete tear-off and installation",
-      "25-year material warranty included",
-      "Full insurance claim support",
-    ],
-    expertsAvailable: 18,
-    responseTime: "< 8 Hours",
+    projectsCompleted: 1234,
     category: "Roofing Services",
     categoryId: "roofing-services",
-    rating: 4.8,
-    completedJobs: 1234,
-    avgCost: "$8,000-35,000",
-    isPopular: true,
     slug: "roof-replacement-services",
   },
   {
     id: "gutter-installation-services",
-    title: "Gutter Installation Services",
+    title: "Gutter Installation & Repair",
     description:
-      "Professional gutter installation and repair to protect your home's foundation with seamless aluminum gutters.",
+      "Professional gutter installation, cleaning, and repair services to protect your home's foundation.",
     imagePath: "/images/gutter-installation.webp",
-    features: [
-      "Seamless aluminum gutter systems",
-      "Leaf guard protection available",
-      "Proper slope and drainage design",
-      "Downspout extension installation",
-    ],
-    expertsAvailable: 16,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 3456,
     category: "Roofing Services",
     categoryId: "roofing-services",
-    rating: 4.6,
-    completedJobs: 2345,
-    avgCost: "$6-15/linear ft",
     slug: "gutter-installation-services",
   },
 
   // WINDOW SERVICES
   {
     id: "energy-efficient-windows-services",
-    title: "Energy-Efficient Window Services",
+    title: "Energy-Efficient Windows",
     description:
-      "Energy-efficient window installation to reduce utility costs and improve home comfort with ENERGY STAR certified products.",
+      "Energy-efficient window installation to reduce utility costs and improve home comfort.",
     imagePath: "/images/energy-efficient-windows.webp",
-    features: [
-      "ENERGY STAR certified products",
-      "Double and triple pane options",
-      "Low-E glass coating included",
-      "Significant utility bill savings",
-    ],
-    expertsAvailable: 20,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 2876,
     category: "Window Services",
     categoryId: "window-services",
-    rating: 4.8,
-    completedJobs: 2876,
-    avgCost: "$450-950/window",
-    isPopular: true,
     slug: "energy-efficient-windows-services",
   },
   {
     id: "window-installation-services",
-    title: "Window Installation Services",
+    title: "Window Installation",
     description:
-      "Professional window installation for new construction and home additions with precise fitting and weatherproofing.",
+      "Professional window installation for new construction and home additions with precise fitting.",
     imagePath: "/images/window-installation.webp",
-    features: [
-      "New construction specialists",
-      "Precise measurement and fitting",
-      "Complete weatherproofing system",
-      "Building code compliance ensured",
-    ],
-    expertsAvailable: 18,
-    responseTime: "< 6 Hours",
+    projectsCompleted: 1890,
     category: "Window Services",
     categoryId: "window-services",
-    rating: 4.7,
-    completedJobs: 1890,
-    avgCost: "$400-800/window",
     slug: "window-installation-services",
   },
   {
@@ -418,56 +180,27 @@ const comprehensiveServices: Service[] = [
     description:
       "Expert window repair services for broken glass, damaged frames, and malfunctioning hardware.",
     imagePath: "/images/window-repair.webp",
-    features: [
-      "Same-day repair service available",
-      "Glass replacement expertise",
-      "Frame and hardware repair",
-      "Emergency board-up services",
-    ],
-    expertsAvailable: 24,
-    responseTime: "< 2 Hours",
+    projectsCompleted: 3456,
     category: "Window Services",
     categoryId: "window-services",
-    rating: 4.6,
-    completedJobs: 3456,
-    avgCost: "$150-600/repair",
-    isEmergency: true,
     slug: "window-repair-services",
   },
   {
     id: "window-replacement-services",
-    title: "Window Replacement Services",
+    title: "Window Replacement",
     description:
-      "Complete window replacement with vinyl, wood, and aluminum frames to improve energy efficiency and home value.",
+      "Energy-efficient window replacement with professional installation. Vinyl, wood, and aluminum options.",
     imagePath: "/images/window-replacement.webp",
-    features: [
-      "Vinyl, wood, and aluminum options",
-      "Professional removal and installation",
-      "Energy efficiency improvement",
-      "Lifetime warranty on materials",
-    ],
-    expertsAvailable: 22,
-    responseTime: "< 4 Hours",
+    projectsCompleted: 5678,
     category: "Window Services",
     categoryId: "window-services",
-    rating: 4.8,
-    completedJobs: 4123,
-    avgCost: "$350-750/window",
-    isPopular: true,
     slug: "window-replacement-services",
   },
 ];
 
-// Service Categories
+// Service Categories (Without Commercial)
 const serviceCategories = [
   { id: "all", name: "All Services", count: comprehensiveServices.length },
-  {
-    id: "commercial-services",
-    name: "Commercial Services",
-    count: comprehensiveServices.filter(
-      (s) => s.categoryId === "commercial-services",
-    ).length,
-  },
   {
     id: "exterior-painting",
     name: "Exterior Painting",
@@ -498,168 +231,80 @@ const serviceCategories = [
   },
 ];
 
-// Service Card Component
+// Service Card Component (Matching Home Page Style)
 interface ServiceCardProps {
   service: Service;
-  index: number;
 }
 
-function ServiceCard({ service, index }: ServiceCardProps) {
-  const handleCallNow = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
-    window.location.href = "tel:+1 (818) 453-6110";
-  };
-
+function ServiceCard({ service }: ServiceCardProps) {
   const handleCardClick = () => {
     window.location.href = `/services/${service.slug}`;
+  };
+
+  const handleGetQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.location.href = `tel:+18184536110`;
   };
 
   return (
     <div
       onClick={handleCardClick}
-      className="group bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border-2 border-gray-300 hover:border-gray-400 transform hover:-translate-y-2 cursor-pointer"
-      style={{
-        animationDelay: `${index * 100}ms`,
-      }}
+      className="group relative bg-white rounded-3xl transition-all duration-500 overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-2xl h-full flex flex-col cursor-pointer"
     >
-      {/* Service Image */}
-      <div className="relative h-56 overflow-hidden">
+      {/* Pink Top Gradient Effect */}
+      <div
+        className="absolute top-0 left-0 right-0 h-24 opacity-40 group-hover:opacity-60 transition-opacity duration-500 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(215, 69, 153, 0.3) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Image Section */}
+      <div className="relative h-56 sm:h-64 lg:h-72 overflow-hidden flex-shrink-0">
         <Image
           src={service.imagePath}
-          alt={service.title}
-          width={400}
-          height={350}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          alt={`${service.title} service`}
+          fill
+          className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          loading="lazy"
         />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
-          {service.isPopular && (
-            <div className="bg-gradient-to-r from-pink-500 to-rose-600 text-white px-2 py-1 rounded-full font-poppins font-medium text-xs flex items-center gap-1 shadow-sm">
-              <Star className="h-3 w-3 fill-current" />
-              Popular
-            </div>
-          )}
-          {service.isEmergency && (
-            <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-2 py-1 rounded-full font-poppins font-medium text-xs flex items-center gap-1 shadow-sm">
-              <Clock className="h-3 w-3" />
-              24/7
-            </div>
-          )}
-        </div>
-
-        {/* Rating Badge */}
-        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg px-2 py-1 text-gray-700">
-          <div className="flex items-center gap-1">
-            <Star className="h-3 w-3 text-yellow-400 fill-current" />
-            <span className="font-poppins font-medium text-xs">
-              {service.rating}
-            </span>
-          </div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
-      {/* Card Content */}
-      <div className="p-4 space-y-3">
-        {/* Header */}
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full font-poppins font-medium text-xs border border-gray-300">
-              {service.category}
-            </span>
-            <div className="flex items-center gap-1 text-green-600">
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="font-poppins font-medium text-xs">
-                Available
-              </span>
-            </div>
-          </div>
+      {/* Content Section */}
+      <div className="flex-grow flex flex-col p-5 sm:p-6 lg:p-7">
+        {/* Service Title */}
+        <h3 className="font-bold text-gray-900 text-base sm:text-lg lg:text-xl leading-tight mb-3 min-h-[3.5rem] flex items-center">
+          {service.title}
+        </h3>
 
-          <h3 className="font-poppins font-medium text-lg text-gray-800 mb-2 group-hover:text-gray-900 transition-colors leading-tight">
-            {service.title}
-          </h3>
+        {/* Description */}
+        <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2 flex-grow min-h-[3rem]">
+          {service.description}
+        </p>
 
-          <p className="font-poppins text-sm text-gray-600 leading-relaxed line-clamp-2">
-            {service.description}
-          </p>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="bg-gray-50 rounded-xl p-2.5 text-center group-hover:bg-pink-50 transition-colors">
-            <Clock className="h-4 w-4 text-pink-600 mx-auto mb-1" />
-            <div className="font-poppins font-medium text-xs text-gray-800">
-              {service.responseTime}
-            </div>
-            <div className="font-poppins text-xs text-gray-500">Response</div>
-          </div>
-          <div className="bg-gray-50 rounded-xl p-2.5 text-center group-hover:bg-green-50 transition-colors">
-            <Users className="h-4 w-4 text-green-600 mx-auto mb-1" />
-            <div className="font-poppins font-medium text-xs text-gray-800">
-              {service.expertsAvailable}
-            </div>
-            <div className="font-poppins text-xs text-gray-500">Experts</div>
-          </div>
-          <div className="bg-gray-50 rounded-xl p-2.5 text-center group-hover:bg-pink-50 transition-colors">
-            <CheckCircle className="h-4 w-4 text-pink-600 mx-auto mb-1" />
-            <div className="font-poppins font-medium text-xs text-gray-800">
-              {service.completedJobs.toLocaleString()}
-            </div>
-            <div className="font-poppins text-xs text-gray-500">Jobs Done</div>
-          </div>
-        </div>
-
-        {/* Average Cost */}
-        <div className="bg-green-50 border border-green-200 rounded-xl p-3">
-          <div className="text-center">
-            <div className="font-poppins font-medium text-sm text-green-800">
-              Average Cost
-            </div>
-            <div className="font-ibm-plex-mono font-medium text-lg text-green-700">
-              {service.avgCost}
-            </div>
-          </div>
-        </div>
-
-        {/* Features */}
-        <div>
-          <h4 className="font-poppins font-medium text-sm text-gray-800 mb-2 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-pink-600" />
-            Key Features:
-          </h4>
-          <ul className="space-y-1">
-            {service.features.slice(0, 2).map((feature, idx) => (
-              <li
-                key={idx}
-                className="flex items-center font-poppins text-xs text-gray-600"
-              >
-                <Check className="h-2.5 w-2.5 text-green-500 mr-2 flex-shrink-0" />
-                <span className="line-clamp-1">{feature}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="font-poppins font-medium text-xs text-gray-600 mt-1">
-            +{service.features.length - 2} more features
-          </p>
+        {/* Projects Completed Badge */}
+        <div className="text-sm font-bold px-4 py-2.5 rounded-full bg-pink-50 text-pink-700 mb-5 border border-pink-100 group-hover:bg-pink-100 group-hover:border-pink-200 transition-colors duration-300 text-center">
+          {service.projectsCompleted.toLocaleString()} Projects Completed
         </div>
 
         {/* CTA Buttons */}
-        <div className="space-y-2">
-          <button
-            onClick={handleCallNow}
-            className="w-full bg-gradient-to-r from-pink-100 to-pink-200 border border-pink-300 text-pink-800 hover:from-pink-200 hover:to-pink-300 py-2.5 px-4 rounded-xl font-poppins font-medium transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
-          >
-            <Phone className="h-4 w-4" />
-            Call Now
-          </button>
-
-          <div className="w-full bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 text-gray-600 py-2 px-4 rounded-xl font-poppins font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="w-full px-4 py-3 rounded-full bg-white hover:bg-gray-50 text-gray-700 text-sm font-bold transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 flex items-center justify-center gap-2 hover:shadow-md whitespace-nowrap">
             View Details
-            <ArrowRight className="h-3 w-3" />
+            <ArrowRight className="h-4 w-4" />
           </div>
+
+          <button
+            onClick={handleGetQuote}
+            className="w-full px-4 py-3 rounded-full text-white text-sm font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 whitespace-nowrap"
+            style={{ backgroundColor: "#D74599" }}
+          >
+            Get Quote
+          </button>
         </div>
       </div>
     </div>
@@ -681,10 +326,7 @@ export default function ServicesClient() {
       const matchesSearch =
         service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.features.some((feature) =>
-          feature.toLowerCase().includes(searchTerm.toLowerCase()),
-        );
+        service.category.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesCategory =
         selectedCategory === "all" || service.categoryId === selectedCategory;
@@ -694,75 +336,195 @@ export default function ServicesClient() {
   }, [searchTerm, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-pink-100 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-green-100 rounded-full blur-3xl"></div>
-      </div>
-
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div
-            className={`max-w-4xl mx-auto text-center transform transition-all duration-1000 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            <div className="inline-flex items-center bg-gray-100 border border-gray-300 text-gray-800 px-6 py-3 rounded-full font-poppins font-medium text-sm mb-8 shadow-sm">
-              <Target className="h-5 w-5 mr-2" />
-              Complete Service Portfolio
-            </div>
-
-            <h1 className="font-poppins font-medium text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-gray-900 leading-tight mb-6">
+      <section className="relative py-8 sm:py-12 lg:py-16 bg-white overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header Content */}
+          <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+            {/* Main Heading */}
+            <h1
+              className={`font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 leading-tight mb-4 sm:mb-6 transition-all duration-1000 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 -translate-y-10"
+              }`}
+            >
               Professional Home Improvement
-              <span className="block bg-gradient-to-r from-pink-600 to-pink-700 bg-clip-text text-transparent">
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600">
                 Services & Solutions
               </span>
             </h1>
 
-            <p className="font-poppins text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-10 max-w-3xl mx-auto">
-              Complete home improvement services with 19 specialized solutions.
-              From residential pavers to commercial roofing - we transform
-              properties with quality craftsmanship and professional results.
+            {/* Subheading */}
+            <p
+              className={`text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8 px-4 transition-all duration-1000 delay-200 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 -translate-y-10"
+              }`}
+            >
+              Transform your home with expert paver installation, window
+              replacement, roofing, and exterior painting services in Los
+              Angeles & Ventura County.
             </p>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto mb-10">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
-                <div className="font-poppins font-medium text-4xl lg:text-5xl text-pink-600 mb-1">
-                  19
-                </div>
-                <div className="font-poppins text-sm text-gray-700">
-                  Services Available
-                </div>
+            {/* CTA Buttons */}
+            <div
+              className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-10 sm:mb-12 lg:mb-16 px-4 transition-all duration-1000 delay-400 ${
+                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+              }`}
+            >
+              <a
+                href="tel:+18184536110"
+                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base lg:text-lg transition-all transform hover:scale-105 hover:shadow-xl shadow-lg gap-2 sm:gap-3"
+                style={{
+                  backgroundColor: "#D74599",
+                  color: "white",
+                }}
+              >
+                <Phone className="h-5 w-5 lg:h-6 lg:w-6" />
+                <span>Call: (818) 453-6110</span>
+              </a>
+
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center bg-white hover:bg-pink-50 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base lg:text-lg transition-all transform hover:scale-105 shadow-lg gap-2 sm:gap-3 border-2"
+                style={{
+                  color: "#D74599",
+                  borderColor: "#D74599",
+                }}
+              >
+                <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6" />
+                Browse Services
+              </a>
+            </div>
+          </div>
+
+          {/* Hero Image */}
+          <div className="relative max-w-7xl mx-auto mb-10 sm:mb-12 lg:mb-16">
+            <div
+              className={`relative transition-all duration-1000 delay-600 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+            >
+              <div className="relative w-full">
+                <Image
+                  src="/images/professionals-services-page.webp"
+                  alt="Professional home improvement service team"
+                  width={2000}
+                  height={1200}
+                  className="w-full h-auto object-contain"
+                  priority={true}
+                  quality={95}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 95vw, 2000px"
+                />
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
-                <div className="font-poppins font-medium text-4xl lg:text-5xl text-green-600 mb-1">
-                  325+
-                </div>
-                <div className="font-poppins text-sm text-gray-700">
-                  Expert Contractors
-                </div>
+            </div>
+
+            {/* Center Down Arrow */}
+            <div className="absolute left-1/2 -translate-x-1/2 -bottom-8 z-20">
+              <div
+                className={`rounded-full p-3 sm:p-4 shadow-lg animate-bounce transition-all duration-1000 delay-1000 ${
+                  isVisible ? "opacity-100" : "opacity-0"
+                }`}
+                style={{
+                  backgroundColor: "#D74599",
+                }}
+              >
+                <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 text-white rotate-90" />
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
-                <div className="font-poppins font-medium text-4xl lg:text-5xl text-pink-600 mb-1">
-                  98%
-                </div>
-                <div className="font-poppins text-sm text-gray-700">
-                  Success Rate
-                </div>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div
+            className={`grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-5xl mx-auto mb-10 sm:mb-12 lg:mb-16 px-4 transition-all duration-1000 delay-800 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <div className="bg-white rounded-3xl shadow-lg px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-6 text-center hover:shadow-xl transition-all hover:-translate-y-1">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">
+                15+
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-200">
-                <div className="font-poppins font-medium text-4xl lg:text-5xl text-green-600 mb-1">
-                  13+
-                </div>
-                <div className="font-poppins text-sm text-gray-700">
-                  Years Experience
-                </div>
+              <div className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
+                Service Categories
               </div>
+            </div>
+            <div className="bg-white rounded-3xl shadow-lg px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-6 text-center hover:shadow-xl transition-all hover:-translate-y-1">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">
+                30K+
+              </div>
+              <div className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
+                Completed Projects
+              </div>
+            </div>
+            <div className="bg-white rounded-3xl shadow-lg px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-6 text-center hover:shadow-xl transition-all hover:-translate-y-1">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">
+                98%
+              </div>
+              <div className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
+                Customer Satisfaction
+              </div>
+            </div>
+            <div className="bg-white rounded-3xl shadow-lg px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-6 text-center hover:shadow-xl transition-all hover:-translate-y-1">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">
+                13+
+              </div>
+              <div className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
+                Years Experience
+              </div>
+            </div>
+          </div>
+
+          {/* Trust Indicators */}
+          <div
+            className={`flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-8 px-4 transition-all duration-1000 delay-900 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <div className="flex items-center gap-2 sm:gap-3 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+              <CheckCircle2
+                className="h-4 w-4 sm:h-5 sm:w-5"
+                style={{ color: "#D74599" }}
+              />
+              <span className="font-medium text-xs sm:text-sm text-gray-700">
+                Licensed & Insured
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-3 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+              <Phone
+                className="h-4 w-4 sm:h-5 sm:w-5"
+                style={{ color: "#D74599" }}
+              />
+              <span className="font-medium text-xs sm:text-sm text-gray-700">
+                24/7 Available
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-3 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+              <CheckCircle2
+                className="h-4 w-4 sm:h-5 sm:w-5"
+                style={{ color: "#D74599" }}
+              />
+              <span className="font-medium text-xs sm:text-sm text-gray-700">
+                Quality Guaranteed
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-3 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+              <MapPin
+                className="h-4 w-4 sm:h-5 sm:w-5"
+                style={{ color: "#D74599" }}
+              />
+              <span className="font-medium text-xs sm:text-sm text-gray-700">
+                Free Estimates
+              </span>
             </div>
           </div>
         </div>
@@ -770,21 +532,22 @@ export default function ServicesClient() {
 
       {/* Search and Filter Section */}
       <section
-        className={`py-12 bg-gray-50 transform transition-all duration-1000 delay-300 ${
+        id="services"
+        className={`py-12 bg-gray-50 transform transition-all duration-1000 delay-500 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             {/* Search */}
             <div className="relative max-w-2xl mx-auto mb-8">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-6 w-6" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="text"
-                placeholder="Search home improvement services..."
+                placeholder="Search services..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-14 pr-6 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent font-poppins text-base lg:text-lg bg-white shadow-sm"
+                className="w-full pl-12 pr-6 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent text-base bg-white shadow-sm"
               />
             </div>
 
@@ -794,11 +557,15 @@ export default function ServicesClient() {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-xl font-poppins font-medium transition-all duration-300 ${
+                  className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
                     selectedCategory === category.id
-                      ? "bg-pink-600 text-white shadow-sm transform scale-105"
+                      ? "text-white shadow-lg transform scale-105"
                       : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-gray-300"
                   }`}
+                  style={{
+                    backgroundColor:
+                      selectedCategory === category.id ? "#D74599" : "",
+                  }}
                 >
                   {category.name} ({category.count})
                 </button>
@@ -809,20 +576,16 @@ export default function ServicesClient() {
       </section>
 
       {/* Services Grid */}
-      <section
-        className={`py-20 transform transition-all duration-1000 delay-500 ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-        }`}
-      >
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {filteredServices.length === 0 ? (
             <div className="text-center py-20">
-              <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-12 border border-gray-200 shadow-sm max-w-md mx-auto">
+              <div className="bg-gray-50 rounded-3xl p-12 border border-gray-200 max-w-md mx-auto">
                 <Search className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="font-poppins font-medium text-xl text-gray-800 mb-2">
+                <h3 className="font-bold text-xl text-gray-800 mb-2">
                   No Services Found
                 </h3>
-                <p className="font-poppins text-gray-600">
+                <p className="text-gray-600 mb-4">
                   Try different search terms or view all services.
                 </p>
                 <button
@@ -830,16 +593,17 @@ export default function ServicesClient() {
                     setSearchTerm("");
                     setSelectedCategory("all");
                   }}
-                  className="mt-4 bg-gray-800 text-white hover:bg-gray-900 px-6 py-2 rounded-xl font-poppins font-medium transition-all duration-300"
+                  className="px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-white"
+                  style={{ backgroundColor: "#D74599" }}
                 >
                   Show All Services
                 </button>
               </div>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {filteredServices.map((service, index) => (
-                <ServiceCard key={service.id} service={service} index={index} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8 max-w-[1600px] mx-auto">
+              {filteredServices.map((service) => (
+                <ServiceCard key={service.id} service={service} />
               ))}
             </div>
           )}
@@ -847,25 +611,57 @@ export default function ServicesClient() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="font-poppins font-medium text-2xl sm:text-3xl text-gray-800 mb-4">
-              Ready to Transform Your Property?
-            </h2>
-            <p className="font-poppins text-base sm:text-lg text-gray-600 mb-8">
-              Our licensed contractors are ready to help with any home
-              improvement project you have in mind.
-            </p>
-            <button
-              onClick={() => (window.location.href = "tel:+1 (818) 453-6110")}
-              className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-8 py-4 rounded-2xl font-poppins font-medium text-base lg:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 mx-auto"
-            >
-              <PhoneCall className="h-5 w-5" />
-              <span className="font-ibm-plex-mono font-medium">
-                Call (818) 453-6110
-              </span>
-            </button>
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="relative bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-lg overflow-hidden max-w-3xl mx-auto min-h-[240px] sm:h-[200px] flex items-center justify-center">
+              {/* Pink Gradient Effect on Top */}
+              <div
+                className="absolute top-0 left-0 right-0 h-16 opacity-15 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(215, 69, 153, 0.5) 0%, transparent 100%)",
+                }}
+              />
+
+              {/* Content */}
+              <div className="relative w-full">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                  Ready to Transform Your Home?
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 mb-6 max-w-xl mx-auto px-2">
+                  Contact our expert team today for a free consultation and
+                  detailed estimate for your home improvement project.
+                </p>
+
+                {/* Buttons Row */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-4">
+                  <a
+                    href="/locations"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 bg-white hover:bg-gray-50 text-gray-700 border-2 border-gray-300 hover:border-gray-400"
+                  >
+                    <MapPin className="h-4 w-4 sm:h-5 sm:w-5" />
+                    View Service Areas
+                  </a>
+
+                  <a
+                    href="tel:+18184536110"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-white"
+                    style={{ backgroundColor: "#D74599" }}
+                  >
+                    <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
+                    Call: (818) 453-6110
+                  </a>
+                </div>
+
+                {/* Info Text */}
+                <div className="flex justify-center items-center">
+                  <span className="text-xs sm:text-sm text-gray-500 font-medium">
+                    Available 7 Days • Free Estimates
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

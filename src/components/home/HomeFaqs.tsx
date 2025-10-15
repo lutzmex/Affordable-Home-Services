@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Plus, Phone, MessageCircle } from "lucide-react";
 
 interface FAQ {
   id: number;
@@ -11,55 +11,60 @@ interface FAQ {
 
 export function HomeFaqs() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(1);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const faqs: FAQ[] = [
     {
       id: 1,
-      question: "What home improvement services do you offer?",
+      question: "What services does Affordable Home Services provide?",
       answer:
-        "We specialize in four main services: professional paver installation for driveways, patios, and pool decks; energy-efficient window replacement and restoration; complete roofing services including repair and replacement; and exterior painting for residential and commercial properties. All services are performed by licensed, insured contractors throughout Los Angeles and Ventura County.",
+        "We offer comprehensive handyman and home improvement services including paver installation for patios and driveways, window replacement and repair, complete roofing solutions, and professional exterior painting. We serve residential and commercial properties throughout Los Angeles and Ventura County with licensed, insured professionals.",
     },
     {
       id: 2,
-      question: "How much do paver installation projects typically cost?",
+      question: "Do you offer free estimates for projects?",
       answer:
-        "Paver installation costs vary by project size and material choice. Driveway pavers typically range from $12-18 per square foot, patio pavers $15-25 per square foot, and pool deck pavers $18-28 per square foot. These prices include excavation, base preparation, paver installation, joint sand, and sealing. We provide detailed written estimates at no cost.",
+        "Yes! We provide completely free, no-obligation estimates for all our services. Our team will assess your project, discuss your needs, and give you a detailed quote with transparent pricing. There are no hidden fees or surprise charges - you'll know exactly what to expect before we start.",
     },
     {
       id: 3,
-      question: "Are you licensed and insured contractors?",
+      question: "Are you licensed and insured?",
       answer:
-        "Yes, we are fully licensed by the California Contractors State License Board (License #XXXXXX), bonded, and carry comprehensive liability insurance plus Workers' Compensation for all employees. We maintain an A+ Better Business Bureau rating and provide detailed warranties on all work performed.",
+        "Absolutely. We are fully licensed, bonded, and insured for your complete protection. Our team carries comprehensive liability insurance and workers' compensation coverage. We maintain all required certifications and permits to ensure your project meets local building codes and safety standards.",
     },
     {
       id: 4,
-      question: "Do you provide free estimates for all services?",
+      question: "Which areas in Los Angeles and Ventura County do you serve?",
       answer:
-        "Absolutely! We provide comprehensive written estimates for all projects at no cost. Our estimates include detailed material specifications, labor costs, project timeline, and warranty information. We believe in transparent pricing with no hidden fees or surprise costs - what we quote is what you pay.",
+        "We proudly serve all of Los Angeles County including the San Fernando Valley, Pasadena, Glendale, Burbank, Santa Clarita, Long Beach, and surrounding areas. In Ventura County, we cover Thousand Oaks, Simi Valley, Oxnard, Camarillo, Ventura, and nearby cities. Contact us to confirm service availability in your specific location.",
     },
     {
       id: 5,
-      question: "What areas do you serve in Southern California?",
+      question: "How quickly can you start my project?",
       answer:
-        "We serve all of Los Angeles County including Santa Monica, Beverly Hills, Pasadena, Glendale, Burbank, Van Nuys, and the entire San Fernando Valley. We also serve all of Ventura County including Thousand Oaks, Simi Valley, Oxnard, Camarillo, and Ventura. Our local teams understand Southern California's unique climate and building requirements.",
+        "We understand that timing matters. For many projects, we can schedule an initial consultation within 24-48 hours. Emergency repairs and urgent issues often receive same-day service. Once you approve the estimate, most projects can begin within a week, depending on the scope and material availability.",
     },
     {
       id: 6,
-      question: "How long do paver installations typically take?",
+      question: "What types of paver installations do you do?",
       answer:
-        "Project timelines vary by size and complexity. Most driveway paver installations take 3-5 days, patio installations 4-7 days, and pool deck installations 5-8 days. This includes excavation, base preparation, paver installation, and final sealing. Weather conditions and permit requirements may affect timelines.",
+        "We specialize in all types of paver projects including driveway pavers, patio installations, pool deck pavers, walkways, and outdoor entertainment areas. We work with various materials like concrete pavers, natural stone, and brick. Our installations include proper base preparation, grading for drainage, and professional sealing for long-lasting results.",
     },
     {
       id: 7,
-      question: "What types of windows do you install and replace?",
+      question: "Do you handle emergency roofing repairs?",
       answer:
-        "We install and replace all types of windows including vinyl, wood, and aluminum frames in single-hung, double-hung, casement, sliding, and custom configurations. All our windows are Energy Star certified for maximum efficiency. We also specialize in historic window restoration for older Los Angeles homes, preserving character while improving performance.",
+        "Yes, we provide 24/7 emergency roofing services for urgent situations like leaks, storm damage, or structural concerns. Our rapid response team will assess the damage, perform temporary repairs to prevent further issues, and provide a detailed plan for permanent repairs. We also work with insurance companies for claim assistance.",
     },
     {
       id: 8,
-      question: "Do you handle roofing emergencies and insurance claims?",
+      question: "What payment methods do you accept?",
       answer:
-        "Yes, we provide 24/7 emergency roofing services throughout Los Angeles and Ventura County. Our certified roofers work directly with insurance companies to ensure proper claim handling for storm damage, leaks, and other covered repairs. We handle all documentation and work with adjusters to expedite your claim process.",
+        "We accept multiple payment options for your convenience including cash, checks, all major credit cards, and digital payment platforms. For larger projects, we offer flexible payment schedules with deposits and progress payments. We'll discuss payment terms clearly in your estimate before any work begins.",
     },
   ];
 
@@ -68,88 +73,108 @@ export function HomeFaqs() {
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Home Improvement Questions
+        {/* Updated Header */}
+        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+          <div className="inline-flex items-center bg-pink-50 text-pink-700 px-6 py-3 rounded-full font-semibold text-sm mb-6 border border-pink-100">
+            <MessageCircle className="h-5 w-5 mr-2" />
+            Common Questions
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+            Your Questions About Our
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600">
+              Home Services
+            </span>
           </h2>
-          <p className="text-lg text-gray-600">Answered</p>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
-            Common questions about our paver, window, roofing, and painting
-            services in Los Angeles & Ventura County.
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about our handyman and home improvement services in Los Angeles and Ventura County.
           </p>
         </div>
 
-        {/* FAQ Items */}
+        {/* FAQ Items - Original Design with Color Updates */}
         <div className="space-y-3 sm:space-y-4 max-w-4xl mx-auto">
-          {faqs.map((faq) => (
-            <div key={faq.id} className="border-b border-stone-200">
+          {faqs.map((faq, index) => (
+            <div
+              key={faq.id}
+              className={`border-b border-gray-200 transition-all duration-500 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: `${index * 50}ms` }}
+            >
               <button
                 onClick={() => toggleFaq(faq.id)}
-                className="w-full py-4 sm:py-6 text-left flex items-center justify-between group"
+                className="w-full py-4 sm:py-6 text-left flex items-center justify-between group hover:bg-pink-50 transition-colors duration-200 rounded-lg px-4"
                 aria-expanded={expandedFaq === faq.id}
               >
-                <span className="font-medium text-sm sm:text-base text-gray-900 pr-4 sm:pr-8">
+                <span className={`font-semibold text-sm sm:text-base pr-4 sm:pr-8 transition-colors duration-200 ${
+                  expandedFaq === faq.id ? "text-pink-600" : "text-gray-900"
+                }`}>
                   {faq.question}
                 </span>
                 <div
-                  className={`flex-shrink-0 transition-transform duration-200 ${
-                    expandedFaq === faq.id ? "rotate-45" : ""
+                  className={`flex-shrink-0 transition-all duration-300 ${
+                    expandedFaq === faq.id ? "rotate-45 text-pink-600" : "text-gray-400"
                   }`}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-plus h-4 w-4 sm:h-5 sm:w-5 text-gray-500"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="M12 5v14"></path>
-                  </svg>
+                  <Plus className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
               </button>
 
-              {expandedFaq === faq.id && (
-                <div className="pb-4 sm:pb-6">
+              {/* Answer with smooth animation */}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  expandedFaq === faq.id
+                    ? "max-h-96 opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="pb-4 sm:pb-6 px-4">
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Contact CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-stone-50 rounded-2xl p-8 border border-stone-100">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Still Have Questions?
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Our friendly team is here to help you choose the perfect solution
-              for your home improvement project.
-            </p>
-            <a
-              href="tel:+18184536110"
-              className="inline-flex items-center gap-2 text-white hover:bg-opacity-90 px-8 py-4 rounded-xl font-medium text-lg transition-all duration-300 shadow-lg"
+        {/* Updated CTA Box - Compact Size */}
+        <div className="text-center mt-12 sm:mt-16">
+          <div className="relative bg-white rounded-3xl p-5 sm:p-6 border border-gray-200 shadow-lg overflow-hidden max-w-3xl mx-auto">
+            <div
+              className="absolute top-0 left-0 right-0 h-16 opacity-15 pointer-events-none"
               style={{
-                backgroundColor: "#D74599",
+                background:
+                  "linear-gradient(180deg, rgba(215, 69, 153, 0.5) 0%, transparent 100%)",
               }}
-            >
-              Call Us Now: (818) 453-6110
-            </a>
+            />
+            <div className="relative">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                Still Have Questions?
+              </h3>
+              <p className="text-sm text-gray-600 mb-4 max-w-xl mx-auto">
+                Call us today for a free consultation. Our friendly team is ready to help with your home improvement project.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <a
+                  href="tel:+18184536110"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-white"
+                  style={{ backgroundColor: "#D74599" }}
+                >
+                  <Phone className="h-4 w-4" />
+                  Call: (818) 453-6110
+                </a>
+                <span className="text-xs sm:text-sm text-gray-500 font-medium">
+                  Available Daily • Free Estimates
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+export default HomeFaqs;
