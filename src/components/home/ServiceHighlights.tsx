@@ -1,7 +1,7 @@
 "use client";
 
-import React, { memo, useMemo, useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
+import React, { memo, useMemo } from "react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 // Service Interface
@@ -44,7 +44,7 @@ const ServiceCard = memo(({ service }: { service: Service }) => {
           alt={`${service.title} in Los Angeles and Ventura County`}
           fill
           className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           loading="lazy"
         />
         
@@ -95,99 +95,13 @@ const ServiceCard = memo(({ service }: { service: Service }) => {
 ServiceCard.displayName = "ServiceCard";
 
 function ServiceHighlights() {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  // Services data (excluding Commercial services)
+  // Services data - Only 6 main services
   const services = useMemo<Service[]>(
     () => [
-      // PAVER SERVICES
-      {
-        id: "driveway-paver-installation",
-        title: "Driveway Paver Installation",
-        description:
-          "Beautiful, durable driveway pavers that boost curb appeal. Expert installation with quality materials.",
-        imagePath: "/images/driveway-paver-installation.webp",
-        projectsCompleted: 780,
-        category: "Paver Services",
-        slug: "driveway-pavers-services",
-      },
-      {
-        id: "patio-paver-installation",
-        title: "Patio Paver Installation",
-        description:
-          "Create your dream outdoor living space with custom patio pavers. Professional design and installation.",
-        imagePath: "/images/patio-paver-installation.webp",
-        projectsCompleted: 920,
-        category: "Paver Services",
-        slug: "patio-pavers-services",
-      },
-      {
-        id: "pool-deck-pavers",
-        title: "Pool Deck Pavers",
-        description:
-          "Safe, slip-resistant pool deck pavers that stay cool. Transform your pool area with style.",
-        imagePath: "/images/pool-deck-pavers.webp",
-        projectsCompleted: 445,
-        category: "Paver Services",
-        slug: "pool-deck-pavers-services",
-      },
-      {
-        id: "paver-repair-restoration",
-        title: "Paver Repair & Restoration",
-        description:
-          "Restore your existing pavers to like-new condition. Replacement, re-leveling, and sealing services.",
-        imagePath: "/images/paver-repair-restoration.webp",
-        projectsCompleted: 1240,
-        category: "Paver Services",
-        slug: "paver-repair-services",
-      },
-
-      // WINDOW SERVICES
-      {
-        id: "window-replacement",
-        title: "Window Replacement",
-        description:
-          "Energy-efficient window replacement. Lower bills, improve comfort. Quality vinyl and wood options.",
-        imagePath: "/images/window-replacement.webp",
-        projectsCompleted: 1650,
-        category: "Window Services",
-        slug: "window-replacement-services",
-      },
-      {
-        id: "window-installation",
-        title: "New Window Installation",
-        description:
-          "Professional window installation for new construction and additions. Precise fitting, proper sealing.",
-        imagePath: "/images/window-installation.webp",
-        projectsCompleted: 540,
-        category: "Window Services",
-        slug: "window-installation-services",
-      },
-      {
-        id: "window-repair",
-        title: "Window Repair Services",
-        description:
-          "Fast window repair for broken glass, damaged frames, and hardware issues. Same-day service available.",
-        imagePath: "/images/window-repair.webp",
-        projectsCompleted: 980,
-        category: "Window Services",
-        slug: "window-repair-services",
-      },
-      {
-        id: "energy-efficient-windows",
-        title: "Energy-Efficient Windows",
-        description:
-          "Cut energy costs with modern, efficient windows. Double-pane, Low-E glass options available.",
-        imagePath: "/images/energy-efficient-windows.webp",
-        projectsCompleted: 825,
-        category: "Window Services",
-        slug: "energy-efficient-windows-services",
-      },
-
       // ROOFING SERVICES
       {
         id: "roof-repair",
-        title: "Roof Repair Services",
+        title: "Roofing Services",
         description:
           "Expert roof leak repair and shingle replacement. Emergency service available 24/7 for urgent issues.",
         imagePath: "/images/roof-repair-services.webp",
@@ -195,76 +109,68 @@ function ServiceHighlights() {
         category: "Roofing Services",
         slug: "roof-repair-services",
       },
+
+      // WINDOW SERVICES
       {
-        id: "roof-replacement",
-        title: "Complete Roof Replacement",
+        id: "window-replacement",
+        title: "Window Services",
         description:
-          "Quality roof replacement with premium materials. Asphalt, tile, and metal roofing options.",
-        imagePath: "/images/roof-replacement.webp",
-        projectsCompleted: 365,
-        category: "Roofing Services",
-        slug: "roof-replacement-services",
-      },
-      {
-        id: "gutter-installation",
-        title: "Gutter Installation & Repair",
-        description:
-          "Protect your home with quality gutters. Installation, cleaning, and repair services available.",
-        imagePath: "/images/gutter-installation.webp",
-        projectsCompleted: 990,
-        category: "Roofing Services",
-        slug: "gutter-installation-services",
-      },
-      {
-        id: "flat-roof-contractors",
-        title: "Flat Roof Services",
-        description:
-          "Specialized flat roof installation and repair. Commercial and residential flat roofing experts.",
-        imagePath: "/images/flat-roofing.webp",
-        projectsCompleted: 185,
-        category: "Roofing Services",
-        slug: "flat-roof-contractors-services",
+          "Energy-efficient window replacement. Lower bills, improve comfort. Quality vinyl and wood options.",
+        imagePath: "/images/window-replacement.webp",
+        projectsCompleted: 1650,
+        category: "Window Services",
+        slug: "window-replacement-services",
       },
 
-      // EXTERIOR PAINTING SERVICES
+      // HVAC SERVICES
       {
-        id: "exterior-house-painting",
-        title: "Exterior House Painting",
+        id: "hvac-services",
+        title: "HVAC Services",
         description:
-          "Professional exterior painting that lasts. Premium paints, expert prep work, beautiful results.",
-        imagePath: "/images/exterior-house-painting.webp",
-        projectsCompleted: 1890,
-        category: "Exterior Painting",
-        slug: "exterior-painting-services",
+          "Professional heating and cooling services with same day estimates. Reliable repairs, maintenance, and installations.",
+        imagePath: "/images/hvac-services.webp",
+        projectsCompleted: 2145,
+        category: "HVAC Services",
+        slug: "hvac-services",
       },
+
+      // HANDYMAN SERVICES
       {
-        id: "exterior-paint-preparation",
-        title: "Exterior Paint Prep",
+        id: "handyman-services",
+        title: "Handyman Services",
         description:
-          "Thorough surface preparation for lasting results. Power washing, scraping, priming, and repairs.",
-        imagePath: "/images/stucco-painting-repair.webp",
-        projectsCompleted: 615,
-        category: "Exterior Painting",
-        slug: "exterior-paint-preparation-services",
+          "Fast and reliable handyman services for home repairs and upgrades. Fix leaks, install hardware, and handle small repairs.",
+        imagePath: "/images/handyman-services.webp",
+        projectsCompleted: 3421,
+        category: "Handyman Services",
+        slug: "handyman-services",
       },
+
+      // DOORS AND GATES
       {
-        id: "fence-painting",
-        title: "Fence & Deck Staining",
+        id: "doors-gates-services",
+        title: "Doors and Gates",
         description:
-          "Protect and beautify your fence and deck. Quality staining and painting for wood surfaces.",
-        imagePath: "/images/fence-deck-staining.webp",
-        projectsCompleted: 535,
-        category: "Exterior Painting",
-        slug: "fence-painting-services",
+          "Professional door and gate installation, repair, and maintenance. Interior, exterior, and security solutions.",
+        imagePath: "/images/door-installation.webp",
+        projectsCompleted: 1285,
+        category: "Door Services",
+        slug: "door-installation-services",
+      },
+
+      // GARAGE DOORS
+      {
+        id: "garage-door-services",
+        title: "Garage Doors",
+        description:
+          "Complete garage door services including installation, repair, and opener replacement. Same-day service available.",
+        imagePath: "/images/garage-door-services.webp",
+        projectsCompleted: 1567,
+        category: "Garage Door Services",
+        slug: "garage-door-services",
       },
     ],
     [],
-  );
-
-  // Show only first 8 services initially
-  const displayedServices = useMemo(
-    () => (isExpanded ? services : services.slice(0, 8)),
-    [isExpanded, services],
   );
 
   return (
@@ -283,14 +189,14 @@ function ServiceHighlights() {
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8 mb-10 sm:mb-12 lg:mb-16 max-w-[1600px] mx-auto">
-          {displayedServices.map((service) => (
+        {/* Services Grid - 6 services in 2 rows */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 mb-10 sm:mb-12 lg:mb-16 max-w-[1600px] mx-auto">
+          {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
-        {/* CTA Box with Buttons */}
+        {/* CTA Box with Button */}
         <div className="text-center">
           <div className="relative bg-white rounded-3xl p-5 sm:p-6 border border-gray-200 shadow-lg overflow-hidden max-w-3xl mx-auto h-[200px] flex items-center justify-center">
             {/* Pink Gradient Effect on Top */}
@@ -311,29 +217,8 @@ function ServiceHighlights() {
                 Explore our complete range of affordable home services. From minor repairs to major renovations, we've got you covered.
               </p>
 
-              {/* Buttons Row */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                {/* Show More/Less Button */}
-                {services.length > 8 && (
-                  <button
-                    className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 bg-white hover:bg-gray-50 text-gray-700 border-2 border-gray-300 hover:border-gray-400"
-                    onClick={() => setIsExpanded(!isExpanded)}
-                  >
-                    {isExpanded ? (
-                      <>
-                        <ArrowUp className="h-4 w-4" />
-                        Show Less
-                      </>
-                    ) : (
-                      <>
-                        <ArrowDown className="h-4 w-4" />
-                        View More Services
-                      </>
-                    )}
-                  </button>
-                )}
-
-                {/* View All Services Button */}
+              {/* View All Services Button */}
+              <div className="flex justify-center">
                 <a
                   href="/services"
                   className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-white"

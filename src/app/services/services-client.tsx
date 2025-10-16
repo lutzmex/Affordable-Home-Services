@@ -22,8 +22,60 @@ interface Service {
   slug: string;
 }
 
-// Services Data (Without Commercial Services)
+// Services Data (With HVAC and Handyman at top)
 const comprehensiveServices: Service[] = [
+  // HVAC SERVICES
+  {
+    id: "hvac-services",
+    title: "HVAC Services",
+    description:
+      "Professional heating and cooling services with same day estimates. Reliable repairs, maintenance, and installations at affordable rates.",
+    imagePath: "/images/hvac-services.webp",
+    projectsCompleted: 2145,
+    category: "HVAC Services",
+    categoryId: "hvac-services",
+    slug: "hvac-services",
+  },
+
+  // GARAGE DOOR SERVICES
+  {
+    id: "garage-door-services",
+    title: "Garage Door Services",
+    slug: "garage-door-services",
+    description:
+      "Complete garage door services including installation, repair, and opener replacement. Same-day service available.",
+    imagePath: "/images/garage-door-services.webp",
+    category: "Garage Door Services",
+    categoryId: "garage-door-services",
+    projectsCompleted: 1567,
+  },
+
+  // DOORS AND GATES INSTALLATION
+  {
+    id: "doors-and-gates-installation",
+    title: "Doors and Gates Installation",
+    slug: "doors-and-gates-installation-services",
+    description:
+      "Professional door and gate installation, repair, and maintenance. Interior, exterior, and security solutions.",
+    imagePath: "/images/door-installation.webp",
+    category: "Door Services",
+    categoryId: "door-services",
+    projectsCompleted: 1285,
+  },
+
+  // HANDYMAN SERVICES
+  {
+    id: "handyman-services",
+    title: "Handyman Services",
+    description:
+      "Fast and reliable handyman services for home repairs and upgrades. Fix leaks, install hardware, and handle small repairs efficiently.",
+    imagePath: "/images/handyman-services.webp",
+    projectsCompleted: 3421,
+    category: "Handyman Services",
+    categoryId: "handyman-services",
+    slug: "handyman-services",
+  },
+
   // EXTERIOR PAINTING
   {
     id: "exterior-painting-services",
@@ -198,9 +250,37 @@ const comprehensiveServices: Service[] = [
   },
 ];
 
-// Service Categories (Without Commercial)
+// Service Categories (With HVAC and Handyman)
 const serviceCategories = [
   { id: "all", name: "All Services", count: comprehensiveServices.length },
+  {
+    id: "hvac-services",
+    name: "HVAC Services",
+    count: comprehensiveServices.filter(
+      (s) => s.categoryId === "hvac-services",
+    ).length,
+  },
+  {
+    id: "garage-door-services",
+    name: "Garage Door Services",
+    count: comprehensiveServices.filter(
+      (s) => s.categoryId === "garage-door-services",
+    ).length,
+  },
+  {
+    id: "door-services",
+    name: "Door Services",
+    count: comprehensiveServices.filter(
+      (s) => s.categoryId === "door-services",
+    ).length,
+  },
+  {
+    id: "handyman-services",
+    name: "Handyman Services",
+    count: comprehensiveServices.filter(
+      (s) => s.categoryId === "handyman-services",
+    ).length,
+  },
   {
     id: "exterior-painting",
     name: "Exterior Painting",
@@ -450,7 +530,7 @@ export default function ServicesClient() {
           >
             <div className="bg-white rounded-3xl shadow-lg px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-6 text-center hover:shadow-xl transition-all hover:-translate-y-1">
               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">
-                15+
+                19+
               </div>
               <div className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
                 Service Categories
@@ -458,7 +538,7 @@ export default function ServicesClient() {
             </div>
             <div className="bg-white rounded-3xl shadow-lg px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-6 text-center hover:shadow-xl transition-all hover:-translate-y-1">
               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-1 sm:mb-2">
-                30K+
+                35K+
               </div>
               <div className="text-xs sm:text-sm text-gray-700 font-medium leading-tight">
                 Completed Projects

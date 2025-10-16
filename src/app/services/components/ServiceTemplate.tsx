@@ -731,11 +731,6 @@ const RelatedServicesSection = React.memo(() => {
                 {service.name}
               </h3>
 
-              {/* Average Cost */}
-              <p className="text-sm text-gray-600 mb-3">
-                Starting from {service.avgCost}
-              </p>
-
               {/* Projects Completed */}
               <div className="text-xs font-medium px-3 py-1 rounded-full bg-green-100 text-green-700">
                 {service.projectsCompleted.toLocaleString()} Projects Completed

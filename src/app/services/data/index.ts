@@ -29,6 +29,13 @@ import { windowInstallationServiceData } from "./services/windowInstallation";
 import { windowRepairServiceData } from "./services/windowRepair";
 import { windowReplacementServiceData } from "./services/windowReplacement";
 
+// Import new services
+import { hvacServiceData } from "./services/hvac";
+import { handymanServiceData } from "./services/handyman";
+import { GarageDoorServiceData } from "./services/garageDoor";
+import { doorsAndGatesInstallationServiceData } from "./services/doorsAndGatesInstallation";
+
+
 // Legacy services registry (existing structure for backward compatibility)
 const LEGACY_SERVICES_REGISTRY: { [key: string]: LegacyServiceData } = {
   // Keep existing legacy services here if any
@@ -37,6 +44,14 @@ const LEGACY_SERVICES_REGISTRY: { [key: string]: LegacyServiceData } = {
 
 // New dynamic services registry (home services)
 const SERVICES_DYNAMIC_REGISTRY: { [key: string]: ServiceDynamicData } = {
+  // HVAC & Handyman Services
+  "hvac-services": hvacServiceData,
+  "handyman-services": handymanServiceData,
+  
+  // Garage Door & Door Services
+  "garage-door-services": GarageDoorServiceData,
+  "doors-and-gates-installation-services": doorsAndGatesInstallationServiceData,
+
   // Commercial Services
   "commercial-painting-services": commercialPaintingServiceData,
   "commercial-paver-installation-services":
@@ -70,8 +85,12 @@ const SERVICES_DYNAMIC_REGISTRY: { [key: string]: ServiceDynamicData } = {
   "gutter-installation-services": gutterinstallationServiceData,
 };
 
-// Service categories for organization
+// Service categories for organization (with all new categories)
 export const SERVICE_CATEGORIES = {
+  HVAC: "HVAC Services",
+  HANDYMAN: "Handyman Services",
+  GARAGE_DOOR: "Garage Door Services",
+  DOOR: "Door Services",
   COMMERCIAL: "Commercial Services",
   PAINTING: "Painting Services",
   ROOFING: "Roofing Services",
@@ -521,6 +540,34 @@ export const getCommercialServices = (): ServiceData[] => {
 export const getResidentialServices = (): ServiceData[] => {
   return getAllServices().filter(
     (service) => !service.slug.includes("commercial"),
+  );
+};
+
+// Get HVAC services
+export const getHVACServices = (): ServiceData[] => {
+  return getAllServices().filter(
+    (service) => service.category === SERVICE_CATEGORIES.HVAC,
+  );
+};
+
+// Get Handyman services
+export const getHandymanServices = (): ServiceData[] => {
+  return getAllServices().filter(
+    (service) => service.category === SERVICE_CATEGORIES.HANDYMAN,
+  );
+};
+
+// Get Garage Door services
+export const getGarageDoorServices = (): ServiceData[] => {
+  return getAllServices().filter(
+    (service) => service.category === SERVICE_CATEGORIES.GARAGE_DOOR,
+  );
+};
+
+// Get Door services
+export const getDoorServices = (): ServiceData[] => {
+  return getAllServices().filter(
+    (service) => service.category === SERVICE_CATEGORIES.DOOR,
   );
 };
 

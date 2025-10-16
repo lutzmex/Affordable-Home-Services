@@ -414,7 +414,7 @@ export interface ServiceStaticConfig {
     }[];
   };
 
-  // Updated related services with complete service data
+  // Updated related services with complete service data (avgCost removed)
   relatedServicesStatic: {
     defaultIconPath: string;
     services: {
@@ -426,7 +426,6 @@ export interface ServiceStaticConfig {
       category: string;
       categoryId: string;
       projectsCompleted: number;
-      avgCost: string;
       timeframe: string;
     }[];
     iconsBySlug: {

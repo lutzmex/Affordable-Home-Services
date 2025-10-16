@@ -37,6 +37,8 @@ import {
   Wrench as WrenchIcon,
   FileText,
   Clock,
+  Wind,
+  DoorOpen,
 } from "lucide-react";
 import { useState, useRef, useEffect, useCallback, memo } from "react";
 
@@ -53,6 +55,26 @@ const MOBILE_SERVICES_DATA = {
   mainServices: {
     title: "Main Services",
     items: [
+      {
+        name: "HVAC Services",
+        href: "/services/hvac-services",
+        icon: Wind,
+      },
+      {
+        name: "Handyman Services",
+        href: "/services/handyman-services",
+        icon: WrenchIcon,
+      },
+      {
+        name: "Garage Door Services",
+        href: "/services/garage-door-services",
+        icon: Square,
+      },
+      {
+        name: "Doors & Gates Installation",
+        href: "/services/doors-and-gates-installation-services",
+        icon: DoorOpen,
+      },
       {
         name: "Paver Installation",
         href: "/services/driveway-pavers-services",
@@ -72,31 +94,6 @@ const MOBILE_SERVICES_DATA = {
         name: "Exterior Painting",
         href: "/services/exterior-painting-services",
         icon: Paintbrush,
-      },
-    ],
-  },
-  paverServices: {
-    title: "Paver Services",
-    items: [
-      {
-        name: "Driveway Pavers",
-        href: "/services/driveway-pavers-services",
-        icon: Truck,
-      },
-      {
-        name: "Patio Pavers",
-        href: "/services/patio-pavers-services",
-        icon: Sun,
-      },
-      {
-        name: "Pool Deck Pavers",
-        href: "/services/pool-deck-pavers-services",
-        icon: Droplets,
-      },
-      {
-        name: "Paver Repair",
-        href: "/services/paver-repair-services",
-        icon: Settings,
       },
     ],
   },
@@ -143,20 +140,40 @@ const STATES_DATA = [
   "Van Nuys",
 ] as const;
 
-// PERFORMANCE: Optimize services data
+// PERFORMANCE: Optimize services data - 3 columns with 4 services each
 const SERVICES_DATA = {
-  mainServices: [
+  essentialServices: [
+    {
+      name: "HVAC Services",
+      href: "/services/hvac-services",
+      icon: Wind,
+      description: "Heating & cooling solutions",
+    },
+    {
+      name: "Handyman Services",
+      href: "/services/handyman-services",
+      icon: WrenchIcon,
+      description: "Quick repairs & installations",
+    },
+    {
+      name: "Garage Door Services",
+      href: "/services/garage-door-services",
+      icon: Square,
+      description: "Installation & repair",
+    },
+    {
+      name: "Doors & Gates Installation",
+      href: "/services/doors-and-gates-installation-services",
+      icon: DoorOpen,
+      description: "Interior & exterior doors",
+    },
+  ],
+  exteriorServices: [
     {
       name: "Paver Installation",
       href: "/services/driveway-pavers-services",
       icon: Square,
       description: "Driveways, patios & walkways",
-    },
-    {
-      name: "Window Services",
-      href: "/services/window-installation-services",
-      icon: Building,
-      description: "Replacement & installation",
     },
     {
       name: "Roofing Services",
@@ -170,31 +187,11 @@ const SERVICES_DATA = {
       icon: Paintbrush,
       description: "Residential & commercial",
     },
-  ],
-  paverServices: [
     {
-      name: "Driveway Pavers",
-      href: "/services/driveway-pavers-services",
-      icon: Truck,
-      description: "Beautiful & durable driveways",
-    },
-    {
-      name: "Patio Pavers",
-      href: "/services/patio-pavers-services",
-      icon: Sun,
-      description: "Outdoor living spaces",
-    },
-    {
-      name: "Pool Deck Pavers",
-      href: "/services/pool-deck-pavers-services",
-      icon: Droplets,
-      description: "Slip-resistant pool areas",
-    },
-    {
-      name: "Paver Repair",
-      href: "/services/paver-repair-services",
-      icon: Settings,
-      description: "Restoration & maintenance",
+      name: "Window Services",
+      href: "/services/window-installation-services",
+      icon: Building,
+      description: "All window solutions",
     },
   ],
   windowServices: [
@@ -217,10 +214,10 @@ const SERVICES_DATA = {
       description: "Glass & frame repairs",
     },
     {
-      name: "Commercial Windows",
-      href: "/services/commercial-windows-services",
+      name: "Energy Efficient Windows",
+      href: "/services/energy-efficient-windows-services",
       icon: Building,
-      description: "Business window solutions",
+      description: "Lower utility costs",
     },
   ],
 } as const;
@@ -431,7 +428,7 @@ const MobileLocationsMenu = memo(({ onClose }: { onClose: () => void }) => {
 
 MobileLocationsMenu.displayName = "MobileLocationsMenu";
 
-// PERFORMANCE: Optimized Desktop Dropdown Content Component
+// PERFORMANCE: Optimized Desktop Dropdown Content Component - 3 COLUMNS WITH 4 SERVICES EACH
 const DropdownContent = memo(
   ({
     id,
@@ -450,14 +447,15 @@ const DropdownContent = memo(
           className="absolute top-full left-1/2 transform -translate-x-1/2 mt-6 bg-white backdrop-blur-md rounded-2xl overflow-hidden z-50 shadow-xl w-[95vw] max-w-5xl"
           style={dropdownStyle}
         >
-          <div className="p-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Column 1: Essential Services */}
             <div>
               <h3 className="font-medium text-slate-900 mb-5 text-sm uppercase tracking-wider flex items-center gap-2.5">
                 <div className="w-2.5 h-2.5 bg-pink-500 rounded-full"></div>
-                Main Services
+                Essential Services
               </h3>
               <ul className="space-y-2">
-                {SERVICES_DATA.mainServices.map((s) => {
+                {SERVICES_DATA.essentialServices.map((s) => {
                   const IconComponent = s.icon;
                   return (
                     <li key={s.name}>
@@ -482,13 +480,15 @@ const DropdownContent = memo(
                 })}
               </ul>
             </div>
+
+            {/* Column 2: Exterior Services */}
             <div>
               <h3 className="font-medium text-slate-900 mb-5 text-sm uppercase tracking-wider flex items-center gap-2.5">
                 <div className="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
-                Paver Services
+                Exterior Services
               </h3>
               <ul className="space-y-2">
-                {SERVICES_DATA.paverServices.map((s) => {
+                {SERVICES_DATA.exteriorServices.map((s) => {
                   const IconComponent = s.icon;
                   return (
                     <li key={s.name}>
@@ -513,10 +513,12 @@ const DropdownContent = memo(
                 })}
               </ul>
             </div>
+
+            {/* Column 3: Window Services */}
             <div>
               <h3 className="font-medium text-slate-900 mb-5 text-sm uppercase tracking-wider flex items-center gap-2.5">
                 <div className="w-2.5 h-2.5 bg-blue-500 rounded-full"></div>
-                Window Services
+                Window Specialists
               </h3>
               <ul className="space-y-2">
                 {SERVICES_DATA.windowServices.map((s) => {

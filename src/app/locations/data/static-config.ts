@@ -138,38 +138,44 @@ export const LOCATION_STATIC_CONFIG = {
     description:
       "Whether you own a home or business in {locationName}, we've got the right service and solution for your project.",
     list: [
-      // COMMERCIAL SERVICES
+      // HVAC SERVICES
       {
-        name: 'Commercial Painting Services',
+        name: 'HVAC Services',
         description:
-          'Professional commercial painting for offices, retail stores, and industrial buildings with minimal business disruption in {locationName}.',
-        iconName: 'Building',
-        iconPath: '/images/commercial-exterior-painting.webp',
-        slug: 'commercial-painting-services',
+          'Professional heating and cooling services with same day estimates. Reliable repairs, maintenance, and installations in {locationName}.',
+        iconName: 'Wind',
+        iconPath: '/images/hvac-services.webp',
+        slug: 'hvac-services',
       },
+
+      // GARAGE DOOR SERVICES
       {
-        name: 'Commercial Paver Installation',
+        name: 'Garage Door Services',
         description:
-          'Durable commercial paver solutions for business entrances, parking areas, and outdoor commercial spaces in {locationName}.',
-        iconName: 'Building',
-        iconPath: '/images/commercial-paver-services.webp',
-        slug: 'commercial-paver-installation-services',
+          'Complete garage door services including installation, repair, and opener replacement. Same-day service available in {locationName}.',
+        iconName: 'Square',
+        iconPath: '/images/garage-door-services.webp',
+        slug: 'garage-door-services',
       },
+
+      // DOORS AND GATES INSTALLATION
       {
-        name: 'Commercial Roofing Services',
+        name: 'Doors and Gates Installation',
         description:
-          'Complete commercial roofing solutions including flat roofs, TPO systems, and preventive maintenance programs in {locationName}.',
-        iconName: 'Building',
-        iconPath: '/images/commercial-roofing.webp',
-        slug: 'commercial-roofing-services',
+          'Professional door and gate installation, repair, and maintenance. Interior, exterior, and security solutions in {locationName}.',
+        iconName: 'DoorOpen',
+        iconPath: '/images/door-installation.webp',
+        slug: 'doors-and-gates-installation-services',
       },
+
+      // HANDYMAN SERVICES
       {
-        name: 'Commercial Window Services',
+        name: 'Handyman Services',
         description:
-          'Professional commercial window installation, replacement, and repair for office buildings and retail spaces in {locationName}.',
-        iconName: 'Building',
-        iconPath: '/images/commercial-window-services.webp',
-        slug: 'commercial-windows-services',
+          'Fast and reliable handyman services for home repairs and upgrades. Fix leaks, install hardware, and handle small repairs in {locationName}.',
+        iconName: 'Wrench',
+        iconPath: '/images/handyman-services.webp',
+        slug: 'handyman-services',
       },
 
       // EXTERIOR PAINTING SERVICES

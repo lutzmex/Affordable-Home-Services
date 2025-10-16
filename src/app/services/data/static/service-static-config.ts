@@ -357,6 +357,62 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
   relatedServicesStatic: {
     defaultIconPath: "/images/default-service-icon.webp",
     services: [
+      // HVAC SERVICES
+      {
+        id: "hvac-services",
+        name: "HVAC Services",
+        slug: "hvac-services",
+        description:
+          "Professional heating and cooling services with same day estimates. Reliable repairs, maintenance, and installations.",
+        iconPath: "/images/hvac-services.webp",
+        category: "HVAC Services",
+        categoryId: "hvac-services",
+        projectsCompleted: 2145,
+        timeframe: "1-3 days",
+      },
+
+      // HANDYMAN SERVICES
+      {
+        id: "handyman-services",
+        name: "Handyman Services",
+        slug: "handyman-services",
+        description:
+          "Fast and reliable handyman services for home repairs and upgrades. Fix leaks, install hardware, and handle small repairs.",
+        iconPath: "/images/handyman-services.webp",
+        category: "Handyman Services",
+        categoryId: "handyman-services",
+        projectsCompleted: 3421,
+        timeframe: "1-2 days",
+      },
+
+      // GARAGE DOOR SERVICES
+      {
+        id: "garage-door-services",
+        name: "Garage Door Services",
+        slug: "garage-door-services",
+        description:
+          "Complete garage door services including installation, repair, and opener replacement. Same-day service available.",
+        iconPath: "/images/garage-door-services.webp",
+        category: "Garage Door Services",
+        categoryId: "garage-door-services",
+        projectsCompleted: 1567,
+        timeframe: "1-2 days",
+      },
+
+      // DOORS AND GATES INSTALLATION
+      {
+        id: "doors-and-gates-installation",
+        name: "Doors and Gates Installation",
+        slug: "doors-and-gates-installation-services",
+        description:
+          "Professional door and gate installation, repair, and maintenance. Interior, exterior, and security solutions.",
+        iconPath: "/images/door-installation.webp",
+        category: "Door Services",
+        categoryId: "door-services",
+        projectsCompleted: 1285,
+        timeframe: "1-2 days",
+      },
+
       // PAVER SERVICES
       {
         id: "driveway-paver-installation",
@@ -368,7 +424,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Paver Services",
         categoryId: "paver-services",
         projectsCompleted: 2456,
-        avgCost: "$12-18/sq ft",
         timeframe: "3-5 days",
       },
       {
@@ -381,7 +436,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Paver Services",
         categoryId: "paver-services",
         projectsCompleted: 3234,
-        avgCost: "$15-25/sq ft",
         timeframe: "4-7 days",
       },
       {
@@ -394,7 +448,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Paver Services",
         categoryId: "paver-services",
         projectsCompleted: 1567,
-        avgCost: "$18-28/sq ft",
         timeframe: "5-8 days",
       },
       {
@@ -407,7 +460,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Paver Services",
         categoryId: "paver-services",
         projectsCompleted: 4321,
-        avgCost: "$8-15/sq ft",
         timeframe: "1-3 days",
       },
 
@@ -422,7 +474,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Window Services",
         categoryId: "window-services",
         projectsCompleted: 5678,
-        avgCost: "$450-850 per window",
         timeframe: "1-2 days",
       },
       {
@@ -435,7 +486,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Window Services",
         categoryId: "window-services",
         projectsCompleted: 987,
-        avgCost: "$800-1500 per window",
         timeframe: "2-4 days",
       },
       {
@@ -448,7 +498,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Window Services",
         categoryId: "window-services",
         projectsCompleted: 2345,
-        avgCost: "$150-300 per window",
         timeframe: "1 day",
       },
       {
@@ -461,7 +510,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Window Services",
         categoryId: "window-services",
         projectsCompleted: 876,
-        avgCost: "$200-600 per window",
         timeframe: "1-3 days",
       },
 
@@ -476,7 +524,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Roofing Services",
         categoryId: "roofing-services",
         projectsCompleted: 4567,
-        avgCost: "$300-1200 per repair",
         timeframe: "1-2 days",
       },
       {
@@ -489,7 +536,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Roofing Services",
         categoryId: "roofing-services",
         projectsCompleted: 1234,
-        avgCost: "$8000-25000",
         timeframe: "2-5 days",
       },
       {
@@ -502,7 +548,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Roofing Services",
         categoryId: "roofing-services",
         projectsCompleted: 543,
-        avgCost: "$5-15/sq ft",
         timeframe: "3-10 days",
       },
       {
@@ -515,7 +560,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Roofing Services",
         categoryId: "roofing-services",
         projectsCompleted: 3456,
-        avgCost: "$6-12 per linear ft",
         timeframe: "1-2 days",
       },
 
@@ -530,7 +574,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Exterior Painting",
         categoryId: "exterior-painting",
         projectsCompleted: 6789,
-        avgCost: "$3500-8500",
         timeframe: "4-8 days",
       },
       {
@@ -543,7 +586,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Exterior Painting",
         categoryId: "exterior-painting",
         projectsCompleted: 987,
-        avgCost: "$2-6/sq ft",
         timeframe: "3-10 days",
       },
       {
@@ -556,7 +598,6 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Exterior Painting",
         categoryId: "exterior-painting",
         projectsCompleted: 2345,
-        avgCost: "$2-5/sq ft",
         timeframe: "2-4 days",
       },
       {
@@ -569,11 +610,18 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
         category: "Exterior Painting",
         categoryId: "exterior-painting",
         projectsCompleted: 1876,
-        avgCost: "$1-3/sq ft",
         timeframe: "1-2 days",
       },
     ],
     iconsBySlug: {
+      // HVAC & Handyman Services
+      "hvac-services": "/images/hvac-services.webp",
+      "handyman-services": "/images/handyman-services.webp",
+
+      // Garage Door & Doors Services
+      "garage-door-services": "/images/garage-door-services.webp",
+      "doors-and-gates-installation-services": "/images/door-installation.webp",
+
       // Paver Services
       "driveway-pavers-services": "/images/driveway-paver-installation.webp",
       "patio-pavers-services": "/images/patio-paver-installation.webp",
@@ -617,6 +665,34 @@ export const SERVICE_STATIC_CONFIG: ServiceStaticConfig = {
 
 // Enhanced service categories for better organization - Home Page Style
 export const SERVICE_CATEGORIES_ENHANCED = {
+  HVAC: {
+    name: "HVAC Services",
+    description:
+      "Professional heating and cooling services including repair, maintenance, and installation",
+    icon: "Wind",
+    color: "text-cyan-600",
+  },
+  HANDYMAN: {
+    name: "Handyman Services",
+    description:
+      "Fast and reliable handyman services for home repairs, installations, and maintenance",
+    icon: "Wrench",
+    color: "text-orange-600",
+  },
+  GARAGE_DOOR: {
+    name: "Garage Door Services",
+    description:
+      "Professional garage door installation, repair, and maintenance services",
+    icon: "Home",
+    color: "text-indigo-600",
+  },
+  DOOR: {
+    name: "Door Services",
+    description:
+      "Complete door and gate installation, repair, and security solutions",
+    icon: "DoorOpen",
+    color: "text-teal-600",
+  },
   PAVER: {
     name: "Paver Services",
     description:

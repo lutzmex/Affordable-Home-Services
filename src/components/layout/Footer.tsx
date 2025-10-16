@@ -12,6 +12,10 @@ import {
   Building,
   Home,
   Paintbrush,
+  Wind,
+  Wrench,
+  DoorOpen,
+  Shield,
 } from "lucide-react";
 
 // Custom Pinterest Icon Component
@@ -39,8 +43,28 @@ export function Footer() {
     { name: "FAQ", href: "/faq" },
   ];
 
-  // Main services with icons - Updated with new slugs
+  // Main services with icons - Updated with Garage Door and Doors & Gates
   const mainServices = [
+    {
+      name: "HVAC Services",
+      href: "/services/hvac-services",
+      icon: Wind,
+    },
+    {
+      name: "Handyman Services",
+      href: "/services/handyman-services",
+      icon: Wrench,
+    },
+    {
+      name: "Garage Door Services",
+      href: "/services/garage-door-services",
+      icon: Square,
+    },
+    {
+      name: "Doors & Gates Installation",
+      href: "/services/doors-and-gates-installation-services",
+      icon: DoorOpen,
+    },
     {
       name: "Paver Installation",
       href: "/services/driveway-pavers-services",
@@ -121,13 +145,28 @@ export function Footer() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
-                <span className="font-poppins bg-green-800 text-white px-3 py-1 rounded-full text-sm sm:text-base font-medium shadow-sm">
-                  Licensed & Insured
-                </span>
-                <span className="font-poppins text-gray-300 text-sm sm:text-base font-medium">
-                  Local Experts
-                </span>
+              {/* License Badge & Local Experts */}
+                            <div className="space-y-3">
+                <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
+                  <span className="font-poppins bg-green-800 text-white px-3 py-1 rounded-full text-sm sm:text-base font-medium shadow-sm">
+                    Licensed & Insured
+                  </span>
+                  <span className="font-poppins text-gray-300 text-sm sm:text-base font-medium">
+                    Local Experts
+                  </span>
+                </div>
+
+                {/* License Number - Enhanced */}
+                <div className="flex justify-center md:justify-start">
+                  <div className="bg-gradient-to-r from-gray-800 to-gray-700 px-4 py-2 rounded-lg border border-gray-600 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                      <span className="font-ibm-plex-mono text-gray-200 text-sm font-medium tracking-wider">
+                        CA License # 988151
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
