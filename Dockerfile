@@ -1,52 +1,65 @@
-# Use official Node.js image
-FROM node:18 AS builder
+# =====================================================
+# Affordable Home Services - Production Dockerfile
+# =====================================================
+
+# Stage 1: Builder - Build the Next.js application
+FROM node:18-alpine AS builder
 
 # Set working directory
 WORKDIR /app
 
 # Install pnpm globally
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.17.0
 
+# Copy package files
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* ./
 
-# Copy package.json and pnpm-lock.yaml first (to optimize caching)
-COPY package.json pnpm-lock.yaml ./
+# Install dependencies
+RUN pnpm install --frozen-lockfile --prefer-offline
 
-# Install dependencies with pnpm
-RUN pnpm install --frozen-lockfile
+# Copy application source
+COPY . .
 
-# Copy the rest of the frontend application
-COPY . . 
-\
-# Build the Next.js project
+# Build the Next.js application with increased memory
 ENV NODE_OPTIONS=--max-old-space-size=4096
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm run build
-# Build the Next.js project with increased memory limit
-RUN NODE_OPTIONS="--max-old-space-size=3072" npm run build
 
-
-# Production stage
-FROM node:18 AS runner
+# Stage 2: Runner - Production runtime
+FROM node:18-alpine AS runner
 
 # Set working directory
 WORKDIR /app
 
-# Install pnpm globally, wget for health checks
-RUN npm install -g pnpm && \
-    apt-get update && \
-    apt-get install -y wget && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Set environment to production
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Copy only necessary files from builder stage
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/node_modules node_modules
-COPY --from=builder /app/public public
-COPY --from=builder /app/package.json package.json
+# Install pnpm and wget for health checks
+RUN npm install -g pnpm@10.17.0 && \
+    apk add --no-cache wget && \
+    rm -rf /var/cache/apk/*
 
-# Expose port 3000
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy built application from builder
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/next.config.* ./
+
+# Switch to non-root user
+USER nextjs
+
+# Expose port
 EXPOSE 3000
 
-# Start the Next.js server
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
+
+# Start the application
 CMD ["pnpm", "start"]
-
-

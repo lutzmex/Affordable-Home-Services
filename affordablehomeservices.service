@@ -1,0 +1,36 @@
+[Unit]
+Description=Affordable Home Services Website
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu/affordablehomeservices
+User=ubuntu
+Group=docker
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=COMPOSE_PROJECT_NAME=affordable-home-services
+
+# Wait for Docker to be ready
+ExecStartPre=/bin/bash -c 'timeout 30 sh -c "until docker info > /dev/null 2>&1; do sleep 1; done"'
+
+# Stop any existing containers
+ExecStartPre=/usr/bin/docker compose down --remove-orphans
+
+# Start the application
+ExecStart=/usr/bin/docker compose up --build
+
+# Stop the application
+ExecStop=/usr/bin/docker compose down --timeout 30
+
+# Restart the application
+ExecReload=/usr/bin/docker compose restart
+
+Restart=on-failure
+RestartSec=30
+TimeoutStartSec=600
+TimeoutStopSec=180
+
+[Install]
+WantedBy=multi-user.target
