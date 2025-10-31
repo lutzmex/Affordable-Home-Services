@@ -4,6 +4,7 @@ import {
   Phone,
   Mail,
   MapPin,
+  Clock,
   Linkedin,
   Twitter,
   Instagram,
@@ -140,7 +141,13 @@ export function Footer() {
                 <div className="flex items-center gap-3 text-gray-300 justify-center md:justify-start">
                   <MapPin className="h-5 w-5 text-pink-400 flex-shrink-0" />
                   <span className="font-poppins text-base sm:text-lg">
-                    Los Angeles & Ventura Counties
+                    149 W 31st St, Los Angeles, CA 90007
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-300 justify-center md:justify-start">
+                  <Clock className="h-5 w-5 text-pink-400 flex-shrink-0" />
+                  <span className="font-poppins text-base sm:text-lg">
+                    7:00 AM - 8:00 PM
                   </span>
                 </div>
               </div>
